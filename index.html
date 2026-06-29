@@ -215,6 +215,132 @@
       line-height: 1.2;
     }
 
+    .hero__scene {
+      display: grid;
+      gap: 18px;
+      align-items: end;
+      max-width: 920px;
+    }
+
+    .house-mascot {
+      display: block;
+      width: min(210px, 48vw);
+      height: auto;
+      filter: drop-shadow(0 16px 22px rgba(16, 46, 50, 0.24));
+      transform-origin: 50% 90%;
+    }
+
+    .house-mascot--hero {
+      animation: mascotHello 900ms 120ms cubic-bezier(.2, 1.35, .28, 1) both, mascotFloat 4.8s 1.2s ease-in-out infinite;
+    }
+
+    .house-mascot--tiny {
+      width: 56px;
+      filter: drop-shadow(0 7px 10px rgba(16, 46, 50, 0.15));
+    }
+
+    .mascot-holder {
+      display: inline-grid;
+      place-items: center;
+      width: auto;
+      height: auto;
+      border-radius: 0;
+      background: transparent;
+      color: inherit;
+    }
+
+    .speech-pop,
+    .popup-card {
+      position: relative;
+      border: 2px solid rgba(255, 255, 255, 0.82);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--ink);
+      box-shadow: 0 20px 54px rgba(15, 42, 47, 0.22);
+      backdrop-filter: blur(12px);
+      transform-origin: 38px calc(100% - 20px);
+      animation: dewPop 680ms 220ms cubic-bezier(.18, 1.28, .3, 1) both;
+    }
+
+    .speech-pop {
+      display: grid;
+      gap: 12px;
+      max-width: 690px;
+      padding: 20px;
+    }
+
+    .speech-pop::after {
+      content: "";
+      position: absolute;
+      left: 34px;
+      bottom: -14px;
+      width: 26px;
+      height: 26px;
+      background: rgba(255, 255, 255, 0.9);
+      border-right: 2px solid rgba(255, 255, 255, 0.82);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.82);
+      transform: rotate(45deg);
+    }
+
+    .speech-pop p {
+      color: #324345;
+      font-size: 1rem;
+      text-shadow: none;
+    }
+
+    .hero__house-label {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-weight: 900;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(10px);
+    }
+
+    @keyframes dewPop {
+      0% {
+        opacity: 0;
+        transform: translateY(14px) scale(0.9);
+      }
+      58% {
+        opacity: 1;
+        transform: translateY(-3px) scale(1.018);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes mascotHello {
+      0% {
+        opacity: 0;
+        transform: translateY(18px) rotate(-5deg) scale(0.92);
+      }
+      70% {
+        opacity: 1;
+        transform: translateY(-4px) rotate(2deg) scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0) scale(1);
+      }
+    }
+
+    @keyframes mascotFloat {
+      0%, 100% {
+        transform: translateY(0) rotate(0);
+      }
+      50% {
+        transform: translateY(-6px) rotate(-1.5deg);
+      }
+    }
+
     .page-section {
       padding: 54px 0;
     }
@@ -245,10 +371,12 @@
       place-items: center;
       width: 46px;
       height: 46px;
-      border-radius: var(--radius);
-      background: var(--foam);
+      border-radius: 14px;
+      background: #fff4cf;
       color: var(--sea-deep);
       flex: 0 0 auto;
+      box-shadow: 0 6px 0 rgba(36, 50, 52, 0.08);
+      transform: rotate(-2deg);
     }
 
     .section-heading__icon svg,
@@ -261,6 +389,18 @@
       stroke-width: 1.9;
       stroke-linecap: round;
       stroke-linejoin: round;
+    }
+
+    .section-heading__icon.mascot-holder {
+      width: 72px;
+      height: 72px;
+      background: transparent;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .section-heading__icon.mascot-holder .house-mascot {
+      width: 72px;
     }
 
     .section-title {
@@ -337,22 +477,40 @@
     .icon-chip {
       display: inline-grid;
       place-items: center;
-      width: 34px;
-      height: 34px;
-      border-radius: var(--radius);
-      background: rgba(45, 150, 163, 0.12);
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: #fff4cf;
       color: var(--sea-deep);
       flex: 0 0 auto;
+      box-shadow: 0 5px 0 rgba(36, 50, 52, 0.08);
+      transform: rotate(-3deg);
     }
 
     .icon-chip svg {
-      width: 19px;
-      height: 19px;
+      width: 20px;
+      height: 20px;
       stroke: currentColor;
       fill: none;
-      stroke-width: 2;
+      stroke-width: 2.25;
       stroke-linecap: round;
       stroke-linejoin: round;
+    }
+
+    .rule-card:nth-child(2n) .icon-chip,
+    .access-card:nth-child(2n) .icon-chip,
+    .restaurant-card:nth-child(2n) .icon-chip {
+      background: #dff4f0;
+      color: #17717b;
+      transform: rotate(2deg);
+    }
+
+    .rule-card:nth-child(3n) .icon-chip,
+    .access-card:nth-child(3n) .icon-chip,
+    .restaurant-card:nth-child(3n) .icon-chip {
+      background: #ffe2dc;
+      color: #b6493b;
+      transform: rotate(-1deg);
     }
 
     .info-card strong,
@@ -528,47 +686,6 @@
       border-bottom-color: var(--coral);
     }
 
-    .map-wrap {
-      display: grid;
-      gap: 18px;
-    }
-
-    .map-stage {
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: #ffffff;
-      box-shadow: var(--shadow);
-    }
-
-    .map-stage svg {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    .map-legend {
-      display: grid;
-      gap: 10px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .legend-dot {
-      width: 13px;
-      height: 13px;
-      border-radius: 50%;
-      background: var(--sea);
-      flex: 0 0 auto;
-    }
-
     .accordion-list {
       display: grid;
       gap: 12px;
@@ -622,6 +739,37 @@
       color: var(--muted);
     }
 
+    .media-strip {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+      margin-top: 4px;
+    }
+
+    .media-card {
+      overflow: hidden;
+      border: 1px solid rgba(36, 50, 52, 0.12);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(36, 50, 52, 0.08);
+    }
+
+    .media-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: #edf7f4;
+    }
+
+    .media-card figcaption {
+      padding: 9px 10px 10px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
     .restaurant-card {
       border-left: 5px solid var(--sun);
     }
@@ -643,6 +791,27 @@
       gap: 16px;
       padding: 24px;
       background: rgba(255, 255, 255, 0.86);
+      animation: dewPop 700ms 120ms cubic-bezier(.18, 1.28, .3, 1) both;
+    }
+
+    .thanks-card__icon {
+      display: grid;
+      place-items: center;
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: #fff4cf;
+      box-shadow: 0 10px 0 rgba(36, 50, 52, 0.08);
+    }
+
+    .thanks-card__icon svg {
+      width: 70px;
+      height: 70px;
+      stroke: #b6493b;
+      fill: none;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .signature {
@@ -684,6 +853,11 @@
         min-height: 78vh;
       }
 
+      .hero__scene {
+        grid-template-columns: minmax(180px, 250px) minmax(0, 1fr);
+        align-items: end;
+      }
+
       .section-heading {
         grid-template-columns: 56px 1fr;
       }
@@ -714,9 +888,6 @@
         padding-inline: 20px;
       }
 
-      .map-legend {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
     }
 
     @media (min-width: 1040px) {
@@ -760,9 +931,14 @@
         display: grid;
       }
 
-      .map-legend {
-        grid-template-columns: 1fr;
+      .speech-pop {
+        padding: 16px;
       }
+
+      .media-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -825,7 +1001,9 @@
       shower: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 11a7 7 0 0 1 14 0"/><path d="M12 4V2"/><path d="M8 13v.5"/><path d="M12 13v.5"/><path d="M16 13v.5"/><path d="M7 17v.5"/><path d="M12 17v.5"/><path d="M17 17v.5"/><path d="M9 21v.5"/><path d="M15 21v.5"/></svg>',
       castle: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V8h4V5h3v3h2V5h3v3h4v13"/><path d="M3 21h18"/><path d="M9 21v-5a3 3 0 0 1 6 0v5"/><path d="M7 12h2"/><path d="M15 12h2"/></svg>',
       store: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h16l-1-5H5z"/><path d="M5 10v11h14V10"/><path d="M9 21v-6h6v6"/><path d="M4 10c0 1.4 1.1 2.5 2.5 2.5S9 11.4 9 10c0 1.4 1.1 2.5 2.5 2.5S14 11.4 14 10c0 1.4 1.1 2.5 2.5 2.5S19 11.4 19 10"/></svg>',
-      map: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3Z"/><path d="M9 3v15"/><path d="M15 6v15"/></svg>'
+      map: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3Z"/><path d="M9 3v15"/><path d="M15 6v15"/></svg>',
+      sparkleHeart: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 8.5a4 4 0 0 0-5.7 0L12 10.3l-1.8-1.8a4 4 0 0 0-5.7 5.7L12 21.5l7.5-7.3a4 4 0 0 0 0-5.7Z"/><path d="M18 2v3"/><path d="M16.5 3.5h3"/><path d="M5 3v2"/><path d="M4 4h2"/></svg>',
+      handsHeart: '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M25 24c-4-5-12-2-12 5 0 8 12 14 19 21 7-7 19-13 19-21 0-7-8-10-12-5l-7 7Z"/><path d="M12 35 5 42c-2 2-2 5 0 7l9 9c2 2 5 2 7 0l7-7"/><path d="M52 35l7 7c2 2 2 5 0 7l-9 9c-2 2-5 2-7 0l-7-7"/><path d="M15 46l8 8"/><path d="M49 46l-8 8"/></svg>'
     };
 
     // Edita los textos en este bloque. La parte de renderizado empieza despues de guideContent.
@@ -843,7 +1021,13 @@
           imageLabel: "Vista de Peñíscola junto al mar",
           eyebrow: "Guía de bienvenida",
           title: "Ven a la Playa 324",
-          intro: "Hola, soy vuestro apartamento de vacaciones y vuestro hogar durante unos días. Raúl y Vanessa me han preparado con mucho cariño para que disfrutéis del mar, del descanso y de Peñíscola.",
+          intro: "Hola, soy vuestro apartamento de vacaciones y vuestro hogar durante unos días.",
+          speech: [
+            "Hola, soy vuestro apartamento de vacaciones y vuestro hogar durante unos días.",
+            "Pero también soy el apartamento de Raúl y Vanessa. Me encontraron hace poco y me han decorado con mucho cariño, ilusión y esfuerzo.",
+            "Durante la reforma intentaron cuidar cada detalle para que vuestra estancia fuera cómoda y especial. Han querido convertirme en un lugar acogedor donde disfrutar del mar, del descanso y de días inolvidables.",
+            "Por eso os quiero pedir un pequeño favor: tratadme con el mismo cariño con el que ellos me prepararon para vosotros. A cambio, intentaré que durante estos días os sintáis como en vuestra propia casa."
+          ],
           badges: [
             { icon: "clock", label: "Check-in", value: "16:00 - 22:00" },
             { icon: "clock", label: "Check-out", value: "Antes de las 11:00" },
@@ -921,22 +1105,6 @@
           title: "Un espacio en mejora",
           text: "Es posible que durante vuestra estancia encontréis una zona en proceso de acondicionamiento. Durante años hubo unos antiguos locales comerciales cerrados; tras un largo proceso, la comunidad recuperó ese espacio y ha comenzado su transformación para crear nuevos jardines y zonas comunes. Gracias por vuestra comprensión durante este periodo de mejora."
         },
-        map: {
-          eyebrow: "Orientación",
-          title: "Plano rápido",
-          intro: "Un mapa sencillo para ubicar los puntos útiles alrededor del apartamento.",
-          labels: {
-            apartment: "Apartamento",
-            beach: "Playa",
-            pool: "Piscina",
-            tennis: "Tenis",
-            parking: "Parking 96",
-            showers: "Duchas",
-            casaJaime: "Casa Jaime",
-            castle: "Castillo",
-            consum: "Consum"
-          }
-        },
         apartment: {
           eyebrow: "Dentro de casa",
           title: "Nos conocemos un poquito mejor",
@@ -949,16 +1117,27 @@
               "Moved el cursor hasta INICIO y luego hacia la derecha, hasta el icono de selección de entradas.",
               "Elegid TV normal o la entrada externa que necesitéis.",
               "Usad los botones de canales y volumen del mando."
+            ], images: [
+              { src: "assets/guide/tv-remote-full.jpeg", alt: "Mando de la televisión", caption: "Mando de la TV" },
+              { src: "assets/guide/tv-home-screen.jpeg", alt: "Pantalla de inicio de la televisión", caption: "Pantalla de inicio" },
+              { src: "assets/guide/tv-inputs-screen.jpeg", alt: "Selector de entradas de la televisión", caption: "Selector de entradas" },
+              { src: "assets/guide/tv-remote-volume-channel.jpeg", alt: "Botones de volumen y canales del mando", caption: "Volumen y canales" }
             ] },
             { icon: "fan", title: "Ventilador del salón", steps: [
               "El ventilador se controla con su mando a distancia.",
               "Si al pulsar no responde, encended primero la luz de la habitación desde el interruptor.",
               "Después podréis activar el ventilador, subir la velocidad con la ruleta y encender o apagar la luz."
+            ], images: [
+              { src: "assets/guide/fan-remote-full.jpeg", alt: "Mando del ventilador", caption: "Mando del ventilador" },
+              { src: "assets/guide/fan-remote-speed.jpeg", alt: "Control de velocidad del ventilador", caption: "Velocidad" },
+              { src: "assets/guide/fan-remote-light.jpeg", alt: "Botón de luz del ventilador", caption: "Luz" }
             ] },
             { icon: "fan", title: "Ventiladores de dormitorios", steps: [
               "Se controlan desde su mando.",
               "Si no encienden, activad primero la luz del dormitorio desde el interruptor de entrada.",
               "Luego ya podéis controlar luz y potencia desde el mando del ventilador."
+            ], images: [
+              { src: "assets/guide/fan-remote-full.jpeg", alt: "Mando de ventilador de dormitorio", caption: "Mando del ventilador" }
             ] },
             { icon: "plate", title: "Lavavajillas", steps: [
               "Usad pastillas 3 en 1, que incluyan la parte salina.",
@@ -1003,12 +1182,15 @@
         },
         thanks: {
           eyebrow: "Muchas gracias",
-          title: "Gracias por elegir nuestro apartamento",
+          title: "Gracias por haber elegido nuestro apartamento",
           paragraphs: [
+            "Gracias por haber elegido nuestro apartamento para disfrutar unos días de Peñíscola.",
             "Cuando lo compramos, imaginamos un lugar donde nosotros mismos querríamos pasar las vacaciones: luminoso, cómodo, acogedor y con el mar siempre presente.",
-            "Esperamos que el apartamento, su terraza y sus vistas se conviertan en uno de vuestros rincones favoritos.",
-            "Si os habéis sentido como en casa, vuestra valoración en Booking, Airbnb o Google será el mejor regalo que podéis hacernos y una ayuda enorme para futuros viajeros.",
-            "Por encima de cualquier valoración, lo que más nos gustaría es volver a daros la bienvenida algún día. Esta puede ser vuestra casa en Peñíscola."
+            "Esperamos que este apartamento, su terraza y sus vistas se conviertan en uno de vuestros rincones favoritos.",
+            "Si os habéis sentido como en casa, vuestra valoración en Booking, Airbnb o Google será el mejor regalo que podéis hacernos, y una ayuda enorme para futuros viajeros.",
+            "Si creéis que nos hemos ganado un 10, será el mejor reconocimiento al esfuerzo e ilusión que hemos puesto en este proyecto.",
+            "Pero, por encima de cualquier valoración, lo que más nos gustaría es volver a daros la bienvenida algún día. Y que esta sea vuestra casa en Peñíscola.",
+            "¡Hasta pronto!"
           ],
           signature: "Raúl y Vanessa"
         }
@@ -1026,7 +1208,13 @@
           imageLabel: "View of Peñíscola by the sea",
           eyebrow: "Welcome guide",
           title: "Ven a la Playa 324",
-          intro: "Hi, I am your holiday apartment and your home for a few days. Raúl and Vanessa prepared me with lots of care so you can enjoy the sea, rest and Peñíscola.",
+          intro: "Hi, I am your holiday apartment and your home for a few days.",
+          speech: [
+            "Hi, I am your holiday apartment and your home for a few days.",
+            "I am also Raúl and Vanessa's apartment. They found me recently and decorated me with lots of care, excitement and effort.",
+            "During the renovation they tried to look after every detail so your stay would be comfortable and special. They wanted to turn me into a welcoming place to enjoy the sea, rest and unforgettable days.",
+            "So I would like to ask you a small favour: please treat me with the same care they used to prepare me for you. In return, I will try to make you feel at home during these days."
+          ],
           badges: [
             { icon: "clock", label: "Check-in", value: "16:00 - 22:00" },
             { icon: "clock", label: "Check-out", value: "Before 11:00" },
@@ -1104,22 +1292,6 @@
           title: "An area being improved",
           text: "During your stay you may see an area being refurbished. For years there were old closed commercial premises there; after a long process, the community recovered the space and has begun transforming it into new gardens and common areas. Thank you for your understanding during this improvement period."
         },
-        map: {
-          eyebrow: "Orientation",
-          title: "Quick map",
-          intro: "A simple map to locate the useful spots around the apartment.",
-          labels: {
-            apartment: "Apartment",
-            beach: "Beach",
-            pool: "Pool",
-            tennis: "Tennis",
-            parking: "Parking 96",
-            showers: "Showers",
-            casaJaime: "Casa Jaime",
-            castle: "Castle",
-            consum: "Consum"
-          }
-        },
         apartment: {
           eyebrow: "Inside the apartment",
           title: "A little guide to the apartment",
@@ -1132,16 +1304,27 @@
               "Move the cursor to HOME and then right to the input selection icon.",
               "Choose normal TV or the external input you need.",
               "Use the channel and volume buttons on the remote."
+            ], images: [
+              { src: "assets/guide/tv-remote-full.jpeg", alt: "TV remote", caption: "TV remote" },
+              { src: "assets/guide/tv-home-screen.jpeg", alt: "TV home screen", caption: "Home screen" },
+              { src: "assets/guide/tv-inputs-screen.jpeg", alt: "TV input selector", caption: "Input selector" },
+              { src: "assets/guide/tv-remote-volume-channel.jpeg", alt: "Volume and channel buttons", caption: "Volume and channels" }
             ] },
             { icon: "fan", title: "Living-room fan", steps: [
               "The fan is controlled with its remote.",
               "If it does not respond, first turn on the room light using the wall switch.",
               "Then you can start the fan, increase speed with the wheel and switch the light on or off."
+            ], images: [
+              { src: "assets/guide/fan-remote-full.jpeg", alt: "Fan remote", caption: "Fan remote" },
+              { src: "assets/guide/fan-remote-speed.jpeg", alt: "Fan speed control", caption: "Speed" },
+              { src: "assets/guide/fan-remote-light.jpeg", alt: "Fan light button", caption: "Light" }
             ] },
             { icon: "fan", title: "Bedroom fans", steps: [
               "They are controlled with their remote.",
               "If they do not turn on, first switch on the bedroom light from the entrance switch.",
               "Then you can control light and power from the fan remote."
+            ], images: [
+              { src: "assets/guide/fan-remote-full.jpeg", alt: "Bedroom fan remote", caption: "Fan remote" }
             ] },
             { icon: "plate", title: "Dishwasher", steps: [
               "Use 3-in-1 tablets that include the salt function.",
@@ -1188,10 +1371,13 @@
           eyebrow: "Thank you",
           title: "Thank you for choosing our apartment",
           paragraphs: [
+            "Thank you for choosing our apartment to enjoy a few days in Peñíscola.",
             "When we bought it, we imagined a place where we ourselves would want to spend our holidays: bright, comfortable, welcoming and always close to the sea.",
             "We hope the apartment, its terrace and its views become one of your favourite corners.",
             "If you felt at home, your review on Booking, Airbnb or Google is the best gift you can give us and a huge help for future travellers.",
-            "More than any review, what we would love most is to welcome you again one day. This can be your home in Peñíscola."
+            "If you think we have earned a 10, it will be the best recognition of the effort and excitement we have put into this project.",
+            "More than any review, what we would love most is to welcome you again one day, and for this to be your home in Peñíscola.",
+            "See you soon!"
           ],
           signature: "Raúl and Vanessa"
         }
@@ -1209,7 +1395,13 @@
           imageLabel: "Vue de Peñíscola au bord de la mer",
           eyebrow: "Guide de bienvenue",
           title: "Ven a la Playa 324",
-          intro: "Bonjour, je suis votre appartement de vacances et votre maison pour quelques jours. Raúl et Vanessa m'ont préparé avec beaucoup de soin pour que vous profitiez de la mer, du repos et de Peñíscola.",
+          intro: "Bonjour, je suis votre appartement de vacances et votre maison pour quelques jours.",
+          speech: [
+            "Bonjour, je suis votre appartement de vacances et votre maison pour quelques jours.",
+            "Je suis aussi l'appartement de Raúl et Vanessa. Ils m'ont trouvé il y a peu et m'ont décoré avec beaucoup de soin, d'illusion et d'effort.",
+            "Pendant la rénovation, ils ont essayé de prendre soin de chaque détail pour que votre séjour soit confortable et spécial. Ils ont voulu faire de moi un lieu accueillant pour profiter de la mer, du repos et de journées inoubliables.",
+            "C'est pourquoi je voudrais vous demander une petite faveur: prenez soin de moi avec le même soin avec lequel ils m'ont préparé pour vous. En échange, j'essaierai de vous faire sentir comme chez vous."
+          ],
           badges: [
             { icon: "clock", label: "Arrivee", value: "16:00 - 22:00" },
             { icon: "clock", label: "Depart", value: "Avant 11:00" },
@@ -1287,22 +1479,6 @@
           title: "Un espace en cours d'amelioration",
           text: "Pendant votre sejour, vous pourrez voir une zone en cours d'amenagement. Pendant des annees, d'anciens locaux commerciaux sont restes fermes; apres un long processus, la residence a recupere cet espace et commence a le transformer en nouveaux jardins et espaces communs. Merci de votre comprehension pendant cette periode d'amelioration."
         },
-        map: {
-          eyebrow: "Orientation",
-          title: "Plan rapide",
-          intro: "Un plan simple pour situer les points utiles autour de l'appartement.",
-          labels: {
-            apartment: "Appart.",
-            beach: "Plage",
-            pool: "Piscine",
-            tennis: "Tennis",
-            parking: "Parking 96",
-            showers: "Douches",
-            casaJaime: "Casa Jaime",
-            castle: "Chateau",
-            consum: "Consum"
-          }
-        },
         apartment: {
           eyebrow: "Dans l'appartement",
           title: "Apprenons a nous connaitre",
@@ -1315,16 +1491,27 @@
               "Deplacez le curseur jusqu'a ACCUEIL puis vers la droite jusqu'a l'icone de selection des entrees.",
               "Choisissez la TV normale ou l'entree externe dont vous avez besoin.",
               "Utilisez les boutons de chaines et de volume de la telecommande."
+            ], images: [
+              { src: "assets/guide/tv-remote-full.jpeg", alt: "Telecommande de la television", caption: "Telecommande TV" },
+              { src: "assets/guide/tv-home-screen.jpeg", alt: "Ecran d'accueil de la television", caption: "Ecran d'accueil" },
+              { src: "assets/guide/tv-inputs-screen.jpeg", alt: "Selection des entrees de la television", caption: "Selection des entrees" },
+              { src: "assets/guide/tv-remote-volume-channel.jpeg", alt: "Boutons volume et chaines", caption: "Volume et chaines" }
             ] },
             { icon: "fan", title: "Ventilateur du salon", steps: [
               "Le ventilateur se controle avec sa telecommande.",
               "S'il ne repond pas, allumez d'abord la lumiere de la piece avec l'interrupteur.",
               "Vous pourrez ensuite activer le ventilateur, augmenter la vitesse avec la molette et allumer ou eteindre la lumiere."
+            ], images: [
+              { src: "assets/guide/fan-remote-full.jpeg", alt: "Telecommande du ventilateur", caption: "Telecommande" },
+              { src: "assets/guide/fan-remote-speed.jpeg", alt: "Controle de vitesse du ventilateur", caption: "Vitesse" },
+              { src: "assets/guide/fan-remote-light.jpeg", alt: "Bouton de lumiere du ventilateur", caption: "Lumiere" }
             ] },
             { icon: "fan", title: "Ventilateurs des chambres", steps: [
               "Ils se controlent avec leur telecommande.",
               "S'ils ne s'allument pas, allumez d'abord la lumiere de la chambre avec l'interrupteur de l'entree.",
               "Vous pourrez ensuite controler la lumiere et la puissance avec la telecommande du ventilateur."
+            ], images: [
+              { src: "assets/guide/fan-remote-full.jpeg", alt: "Telecommande du ventilateur de chambre", caption: "Telecommande" }
             ] },
             { icon: "plate", title: "Lave-vaisselle", steps: [
               "Utilisez des pastilles 3 en 1 incluant la fonction sel.",
@@ -1371,10 +1558,13 @@
           eyebrow: "Merci beaucoup",
           title: "Merci d'avoir choisi notre appartement",
           paragraphs: [
+            "Merci d'avoir choisi notre appartement pour profiter de quelques jours à Peñíscola.",
             "Quand nous l'avons achete, nous avons imagine un lieu ou nous aimerions nous-memes passer les vacances: lumineux, confortable, accueillant et toujours proche de la mer.",
             "Nous esperons que l'appartement, sa terrasse et ses vues deviendront l'un de vos coins preferes.",
             "Si vous vous etes sentis comme chez vous, votre avis sur Booking, Airbnb ou Google sera le plus beau cadeau et une grande aide pour les futurs voyageurs.",
-            "Au-delà de toute note, ce que nous aimerions le plus, c'est vous accueillir de nouveau un jour. Cette maison peut être la vôtre à Peñíscola."
+            "Si vous pensez que nous avons merite un 10, ce sera la meilleure reconnaissance de l'effort et de l'illusion que nous avons mis dans ce projet.",
+            "Au-delà de toute note, ce que nous aimerions le plus, c'est vous accueillir de nouveau un jour, et que cette maison soit la vôtre à Peñíscola.",
+            "À bientôt!"
           ],
           signature: "Raúl et Vanessa"
         }
@@ -1392,7 +1582,13 @@
           imageLabel: "Blick auf Peñíscola am Meer",
           eyebrow: "Willkommensguide",
           title: "Ven a la Playa 324",
-          intro: "Hallo, ich bin euer Ferienapartment und für ein paar Tage euer Zuhause. Raúl und Vanessa haben mich mit viel Liebe vorbereitet, damit ihr Meer, Erholung und Peñíscola genießen könnt.",
+          intro: "Hallo, ich bin euer Ferienapartment und für ein paar Tage euer Zuhause.",
+          speech: [
+            "Hallo, ich bin euer Ferienapartment und für ein paar Tage euer Zuhause.",
+            "Ich bin auch das Apartment von Raúl und Vanessa. Sie haben mich vor Kurzem gefunden und mit viel Liebe, Freude und Einsatz eingerichtet.",
+            "Bei der Renovierung haben sie versucht, auf jedes Detail zu achten, damit euer Aufenthalt bequem und besonders wird. Sie wollten aus mir einen gemütlichen Ort machen, an dem ihr Meer, Erholung und unvergessliche Tage genießen könnt.",
+            "Deshalb möchte ich euch um einen kleinen Gefallen bitten: Behandelt mich mit derselben Liebe, mit der sie mich für euch vorbereitet haben. Dafür werde ich versuchen, dass ihr euch hier wie zu Hause fühlt."
+          ],
           badges: [
             { icon: "clock", label: "Check-in", value: "16:00 - 22:00" },
             { icon: "clock", label: "Check-out", value: "Vor 11:00" },
@@ -1470,22 +1666,6 @@
           title: "Ein Bereich wird verbessert",
           text: "Waehrend eures Aufenthalts koennt ihr moeglicherweise einen Bereich sehen, der gerade hergerichtet wird. Viele Jahre lang standen dort alte Geschaeftsraeume leer; nach einem langen Prozess hat die Gemeinschaft diesen Raum zurueckerhalten und beginnt nun, ihn in neue Gaerten und Gemeinschaftsbereiche zu verwandeln. Danke fuer euer Verstaendnis waehrend dieser Verbesserungsphase."
         },
-        map: {
-          eyebrow: "Orientierung",
-          title: "Schneller Plan",
-          intro: "Eine einfache Karte mit den nuetzlichen Punkten rund um das Apartment.",
-          labels: {
-            apartment: "Apartment",
-            beach: "Strand",
-            pool: "Pool",
-            tennis: "Tennis",
-            parking: "Parkplatz 96",
-            showers: "Duschen",
-            casaJaime: "Casa Jaime",
-            castle: "Burg",
-            consum: "Consum"
-          }
-        },
         apartment: {
           eyebrow: "Im Apartment",
           title: "Ein kleiner Hausguide",
@@ -1498,16 +1678,27 @@
               "Bewegt den Cursor zu HOME und dann nach rechts bis zum Symbol fuer die Eingangsauswahl.",
               "Waehlt normales TV oder den externen Eingang, den ihr braucht.",
               "Sender und Lautstaerke steuert ihr mit der Fernbedienung."
+            ], images: [
+              { src: "assets/guide/tv-remote-full.jpeg", alt: "Fernbedienung des Fernsehers", caption: "Fernbedienung" },
+              { src: "assets/guide/tv-home-screen.jpeg", alt: "Startbildschirm des Fernsehers", caption: "Startbildschirm" },
+              { src: "assets/guide/tv-inputs-screen.jpeg", alt: "Eingangsauswahl des Fernsehers", caption: "Eingangsauswahl" },
+              { src: "assets/guide/tv-remote-volume-channel.jpeg", alt: "Lautstaerke- und Sendertasten", caption: "Lautstaerke und Sender" }
             ] },
             { icon: "fan", title: "Ventilator im Wohnzimmer", steps: [
               "Der Ventilator wird mit seiner Fernbedienung gesteuert.",
               "Wenn er nicht reagiert, schaltet zuerst das Licht im Raum am Wandschalter ein.",
               "Danach koennt ihr den Ventilator einschalten, die Geschwindigkeit mit dem Rad erhoehen und das Licht ein- oder ausschalten."
+            ], images: [
+              { src: "assets/guide/fan-remote-full.jpeg", alt: "Fernbedienung des Ventilators", caption: "Fernbedienung" },
+              { src: "assets/guide/fan-remote-speed.jpeg", alt: "Geschwindigkeitssteuerung des Ventilators", caption: "Geschwindigkeit" },
+              { src: "assets/guide/fan-remote-light.jpeg", alt: "Lichttaste des Ventilators", caption: "Licht" }
             ] },
             { icon: "fan", title: "Ventilatoren in den Schlafzimmern", steps: [
               "Sie werden mit ihrer Fernbedienung gesteuert.",
               "Wenn sie sich nicht einschalten, schaltet zuerst das Schlafzimmerlicht am Eingangsschalter ein.",
               "Danach koennt ihr Licht und Leistung mit der Ventilator-Fernbedienung steuern."
+            ], images: [
+              { src: "assets/guide/fan-remote-full.jpeg", alt: "Fernbedienung des Schlafzimmer-Ventilators", caption: "Fernbedienung" }
             ] },
             { icon: "plate", title: "Geschirrspueler", steps: [
               "Bitte 3-in-1-Tabs verwenden, die auch Salzfunktion enthalten.",
@@ -1554,10 +1745,13 @@
           eyebrow: "Vielen Dank",
           title: "Danke, dass ihr unser Apartment gewaehlt habt",
           paragraphs: [
+            "Danke, dass ihr unser Apartment gewaehlt habt, um ein paar Tage in Peñíscola zu genießen.",
             "Als wir es gekauft haben, stellten wir uns einen Ort vor, an dem wir selbst gern Urlaub machen wuerden: hell, bequem, einladend und immer mit dem Meer in der Naehe.",
             "Wir hoffen, dass das Apartment, seine Terrasse und die Aussicht zu einem eurer Lieblingsorte werden.",
             "Wenn ihr euch wie zu Hause gefuehlt habt, ist eure Bewertung auf Booking, Airbnb oder Google das schoenste Geschenk fuer uns und eine grosse Hilfe fuer kuenftige Reisende.",
-            "Mehr als jede Bewertung würden wir uns freuen, euch eines Tages wieder willkommen zu heißen. Dies kann euer Zuhause in Peñíscola sein."
+            "Wenn ihr findet, dass wir eine 10 verdient haben, ist das die schoenste Anerkennung fuer die Arbeit und Freude, die wir in dieses Projekt gesteckt haben.",
+            "Mehr als jede Bewertung würden wir uns freuen, euch eines Tages wieder willkommen zu heißen, und dass dies euer Zuhause in Peñíscola ist.",
+            "Bis bald!"
           ],
           signature: "Raúl und Vanessa"
         }
@@ -1577,9 +1771,65 @@
     }
 
     function iconEl(name, className = "icon-chip") {
+      if (name && name.startsWith("mascot")) {
+        const variant = name.split(":")[1] || "wave";
+        return mascotEl(variant, `${className} mascot-holder`.trim());
+      }
       const span = el("span", className);
       span.innerHTML = icons[name] || icons.home;
       return span;
+    }
+
+    function mascotEl(variant = "wave", className = "mascot-holder") {
+      const span = el("span", className);
+      span.innerHTML = houseMascotSvg(variant);
+      return span;
+    }
+
+    function houseMascotSvg(variant = "wave") {
+      const poses = {
+        wave: {
+          leftArm: "M17 43c-8 1-12 5-13 10",
+          rightArm: "M47 42c7-8 10-15 7-21",
+          leftHand: [4, 53],
+          rightHand: [54, 21],
+          brow: "M23 30c2-2 5-2 7 0M36 30c2-2 5-2 7 0"
+        },
+        peek: {
+          leftArm: "M17 45c-7 4-10 8-10 12",
+          rightArm: "M47 45c7 4 10 8 10 12",
+          leftHand: [7, 57],
+          rightHand: [57, 57],
+          brow: "M23 29c2-1 5-1 7 0M36 29c2-1 5-1 7 0"
+        },
+        cozy: {
+          leftArm: "M18 43c-6 3-8 7-7 11",
+          rightArm: "M46 43c6 3 8 7 7 11",
+          leftHand: [11, 54],
+          rightHand: [53, 54],
+          brow: "M23 29c2-2 5-2 7 0M36 29c2-2 5-2 7 0"
+        }
+      };
+      const pose = poses[variant] || poses.wave;
+      return `
+        <svg class="house-mascot house-mascot--${escapeHtml(variant)}" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="${pose.leftArm}" fill="none" stroke="#7b5a40" stroke-width="4" stroke-linecap="round"/>
+          <path d="${pose.rightArm}" fill="none" stroke="#7b5a40" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="${pose.leftHand[0]}" cy="${pose.leftHand[1]}" r="4.5" fill="#ffd9b0" stroke="#7b5a40" stroke-width="2"/>
+          <circle cx="${pose.rightHand[0]}" cy="${pose.rightHand[1]}" r="4.5" fill="#ffd9b0" stroke="#7b5a40" stroke-width="2"/>
+          <path d="M10 29 32 10l22 19" fill="#ffcf69" stroke="#7b5a40" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M15 28h34v25a5 5 0 0 1-5 5H20a5 5 0 0 1-5-5Z" fill="#fff6df" stroke="#7b5a40" stroke-width="3"/>
+          <path d="M25 58V44a7 7 0 0 1 14 0v14" fill="#9bd8d1" stroke="#7b5a40" stroke-width="3"/>
+          <circle cx="25" cy="36" r="3" fill="#243234"/>
+          <circle cx="39" cy="36" r="3" fill="#243234"/>
+          <circle cx="20" cy="42" r="3" fill="#ffb1a4" opacity=".8"/>
+          <circle cx="44" cy="42" r="3" fill="#ffb1a4" opacity=".8"/>
+          <path d="M28 44c2.5 2 5.5 2 8 0" fill="none" stroke="#243234" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="${pose.brow}" fill="none" stroke="#7b5a40" stroke-width="2" stroke-linecap="round"/>
+          <path d="M23 20h7v8h-7z" fill="#7fc7d0" stroke="#7b5a40" stroke-width="2"/>
+          <path d="M34 20h7v8h-7z" fill="#7fc7d0" stroke="#7b5a40" stroke-width="2"/>
+        </svg>
+      `;
     }
 
     function appendParagraphs(parent, paragraphs) {
@@ -1613,7 +1863,17 @@
       const wrap = el("div", "hero__content");
       wrap.appendChild(el("p", "eyebrow", content.eyebrow));
       wrap.appendChild(el("h1", "", content.title));
-      wrap.appendChild(el("p", "hero__intro", content.intro));
+
+      const scene = el("div", "hero__scene");
+      scene.appendChild(mascotEl("wave", "mascot-holder hero__mascot"));
+      const speech = el("div", "speech-pop");
+      if (Array.isArray(content.speech)) {
+        appendParagraphs(speech, content.speech);
+      } else {
+        speech.appendChild(el("p", "", content.intro || ""));
+      }
+      scene.appendChild(speech);
+      wrap.appendChild(scene);
 
       const badges = el("div", "hero__badges");
       content.badges.forEach((badge) => {
@@ -1755,28 +2015,6 @@
       app.appendChild(shell.section);
     }
 
-    function renderMap(content) {
-      const shell = sectionShell({ ...content, icon: "map" });
-      const wrap = el("div", "map-wrap");
-      const stage = el("div", "map-stage");
-      stage.innerHTML = buildMapSvg(content.labels);
-      wrap.appendChild(stage);
-
-      const legend = el("div", "map-legend");
-      const legendColors = ["#e96f5a", "#2d96a3", "#f4ba50", "#6b985d", "#956bd1", "#2f7d56", "#d0742d", "#4c798b", "#758039"];
-      Object.values(content.labels).forEach((label, index) => {
-        const item = el("div", "legend-item");
-        const dot = el("span", "legend-dot");
-        dot.style.background = legendColors[index % legendColors.length];
-        item.appendChild(dot);
-        item.appendChild(el("span", "", label));
-        legend.appendChild(item);
-      });
-      wrap.appendChild(legend);
-      shell.inner.appendChild(wrap);
-      app.appendChild(shell.section);
-    }
-
     function renderAccordionSection(content, iconName, listType) {
       const shell = sectionShell({ ...content, icon: iconName });
       const list = el("div", "accordion-list");
@@ -1793,6 +2031,7 @@
         const body = el("div", "accordion-body");
         if (group.steps) body.appendChild(renderList(group.steps, "step-list"));
         if (group.items) body.appendChild(renderList(group.items, listType || "text-list"));
+        if (group.images) body.appendChild(renderMediaStrip(group.images));
         details.appendChild(body);
         list.appendChild(details);
       });
@@ -1800,8 +2039,23 @@
       app.appendChild(shell.section);
     }
 
+    function renderMediaStrip(images) {
+      const strip = el("div", "media-strip");
+      images.forEach((image) => {
+        const figure = el("figure", "media-card");
+        const img = el("img");
+        img.src = image.src;
+        img.alt = image.alt || image.caption || "";
+        img.loading = "lazy";
+        figure.appendChild(img);
+        if (image.caption) figure.appendChild(el("figcaption", "", image.caption));
+        strip.appendChild(figure);
+      });
+      return strip;
+    }
+
     function renderFavorites(content) {
-      const shell = sectionShell({ ...content, icon: "utensils" });
+      const shell = sectionShell({ ...content, icon: "sparkleHeart" });
       const highlight = el("div", "soft-panel");
       highlight.appendChild(el("p", "", content.highlight));
       shell.inner.appendChild(highlight);
@@ -1811,7 +2065,7 @@
       content.restaurants.forEach((item) => {
         const card = el("article", "restaurant-card");
         const title = el("h3");
-        title.appendChild(iconEl("utensils"));
+        title.appendChild(iconEl("sparkleHeart"));
         title.appendChild(document.createTextNode(item.name));
         card.appendChild(title);
         card.appendChild(el("p", "", item.text));
@@ -1824,7 +2078,10 @@
     function renderThanks(content) {
       const section = el("section", "page-section thanks-section reveal");
       const inner = el("div", "section-inner");
-      const card = el("div", "thanks-card");
+      const card = el("div", "thanks-card popup-card");
+      const icon = el("div", "thanks-card__icon");
+      icon.innerHTML = icons.handsHeart;
+      card.appendChild(icon);
       card.appendChild(el("p", "eyebrow", content.eyebrow));
       card.appendChild(el("h2", "", content.title));
       appendParagraphs(card, content.paragraphs);
@@ -1848,62 +2105,6 @@
         '"': "&quot;",
         "'": "&#39;"
       })[char]);
-    }
-
-    function buildMapSvg(labels) {
-      const l = Object.fromEntries(Object.entries(labels).map(([key, value]) => [key, escapeHtml(value)]));
-      return `
-        <svg viewBox="0 0 920 560" role="img" aria-label="${escapeHtml(labels.apartment)}">
-          <defs>
-            <linearGradient id="seaGradient" x1="0" x2="1" y1="0" y2="0">
-              <stop offset="0" stop-color="#7fd4df"/>
-              <stop offset="1" stop-color="#2d96a3"/>
-            </linearGradient>
-            <pattern id="wavePattern" width="42" height="18" patternUnits="userSpaceOnUse">
-              <path d="M0 9c7-8 14-8 21 0s14 8 21 0" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
-            </pattern>
-          </defs>
-          <rect width="920" height="560" fill="#f8fcfb"/>
-          <rect x="0" y="0" width="245" height="560" fill="url(#seaGradient)"/>
-          <rect x="0" y="0" width="245" height="560" fill="url(#wavePattern)" opacity=".95"/>
-          <path d="M245 0c-34 92-26 164 7 226 35 66 34 144-8 236-19 42-20 76-12 98H0V0Z" fill="#f4d184"/>
-          <path d="M275 0h645v560H235c-9-28-6-64 13-104 39-82 38-151 5-215-39-73-43-151 22-241Z" fill="#eef6ee"/>
-          <path d="M305 66h445c43 0 78 35 78 78v246c0 43-35 78-78 78H305c-43 0-78-35-78-78V144c0-43 35-78 78-78Z" fill="#fff" stroke="#c9dfd9" stroke-width="4"/>
-          <path d="M302 126h228v124H302Z" fill="#cfeadf" stroke="#91c6b6" stroke-width="3"/>
-          <path d="M558 126h196v124H558Z" fill="#dcebf7" stroke="#9bc4df" stroke-width="3"/>
-          <path d="M302 282h452v126H302Z" fill="#f6e7c2" stroke="#e2bf68" stroke-width="3"/>
-          <path d="M498 282v126" stroke="#e2bf68" stroke-width="3"/>
-          <path d="M395 126v124" stroke="#91c6b6" stroke-width="3"/>
-          <path d="M80 84c30-22 71-30 107-20" stroke="#fff" stroke-width="8" opacity=".9"/>
-          <path d="M84 466c35 22 78 26 116 9" stroke="#fff" stroke-width="8" opacity=".75"/>
-          <path d="M245 496h560" stroke="#d5c2a4" stroke-width="18" stroke-linecap="round"/>
-          <path d="M245 496h560" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="16 18"/>
-
-          ${mapPin(446, 212, "#e96f5a", l.apartment)}
-          ${mapPin(118, 284, "#2d96a3", l.beach)}
-          ${mapPin(640, 188, "#f4ba50", l.pool)}
-          ${mapPin(632, 344, "#6b985d", l.tennis)}
-          ${mapPin(374, 344, "#956bd1", l.parking)}
-          ${mapPin(292, 450, "#2f7d56", l.showers)}
-          ${mapPin(704, 458, "#d0742d", l.casaJaime)}
-          ${mapPin(820, 84, "#4c798b", l.castle)}
-          ${mapPin(820, 468, "#758039", l.consum)}
-
-          <text x="53" y="42" fill="#fff" font-size="24" font-weight="800">Peñíscola</text>
-          <text x="53" y="70" fill="rgba(255,255,255,.85)" font-size="15">Playa</text>
-        </svg>
-      `;
-    }
-
-    function mapPin(x, y, color, label) {
-      return `
-        <g>
-          <circle cx="${x}" cy="${y}" r="18" fill="${color}" opacity=".2"/>
-          <circle cx="${x}" cy="${y}" r="10" fill="${color}" stroke="#fff" stroke-width="4"/>
-          <rect x="${x + 16}" y="${y - 18}" width="122" height="36" rx="8" fill="#fff" stroke="rgba(36,50,52,.16)"/>
-          <text x="${x + 28}" y="${y + 5}" fill="#243234" font-size="14" font-weight="800">${label}</text>
-        </g>
-      `;
     }
 
     function renderLanguageSwitcher() {
@@ -1932,8 +2133,7 @@
       renderPractical(content.practical);
       renderAccesses(content.accesses);
       renderImprovement(content.improvement);
-      renderMap(content.map);
-      renderAccordionSection(content.apartment, "home", "step-list");
+      renderAccordionSection(content.apartment, "mascot:peek", "step-list");
       renderAccordionSection(content.events, "calendar", "text-list");
       renderFavorites(content.favorites);
       renderThanks(content.thanks);
