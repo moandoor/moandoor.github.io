@@ -1,0 +1,796 @@
+const languages = [
+      { code: "es", label: "ES", name: "Español" },
+      { code: "en", label: "EN", name: "English" },
+      { code: "fr", label: "FR", name: "Français" },
+      { code: "de", label: "DE", name: "Deutsch" }
+    ];
+
+    const icons = {
+      heart: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 5.7a5.1 5.1 0 0 0-7.2 0L12 6.9l-1.2-1.2a5.1 5.1 0 0 0-7.2 7.2L12 21.2l8.4-8.3a5.1 5.1 0 0 0 0-7.2Z"/></svg>',
+      smoke: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 16h10v3H3z"/><path d="M17 16h1.5"/><path d="M21 16h.5"/><path d="M6 12c1.8-1.4 1.8-2.8 0-4.2"/><path d="M11 12c1.8-1.4 1.8-2.8 0-4.2"/><path d="M4 4l16 16"/></svg>',
+      music: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>',
+      moon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.7 15.3A8.5 8.5 0 0 1 8.7 3.3a8.8 8.8 0 1 0 12 12Z"/></svg>',
+      trash: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M6 7l1 14h10l1-14"/><path d="M9 7V4h6v3"/></svg>',
+      pet: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6.5" cy="9" r="2"/><circle cx="17.5" cy="9" r="2"/><circle cx="9.5" cy="5" r="2"/><circle cx="14.5" cy="5" r="2"/><path d="M7.5 17.2c0-2.6 2-4.7 4.5-4.7s4.5 2.1 4.5 4.7c0 1.8-1.3 2.8-2.9 2.1a4 4 0 0 0-3.2 0c-1.6.7-2.9-.3-2.9-2.1Z"/></svg>',
+      dish: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3v7"/><path d="M9 3v7"/><path d="M7 3v18"/><path d="M15 3v18"/><path d="M15 3c3 1.2 4.5 3.6 4.5 7.2S18 16.8 15 18"/></svg>',
+      clock: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+      phone: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.7 19.7 0 0 1-8.6-3.1 19.3 19.3 0 0 1-6-6A19.7 19.7 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>',
+      wifi: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5a11 11 0 0 1 14 0"/><path d="M8.5 16a5.7 5.7 0 0 1 7 0"/><path d="M2 9a16 16 0 0 1 20 0"/><circle cx="12" cy="20" r="1"/></svg>',
+      pool: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18c2 0 2-1 4-1s2 1 4 1 2-1 4-1 2 1 4 1 2-1 2-1"/><path d="M3 21c2 0 2-1 4-1s2 1 4 1 2-1 4-1 2 1 4 1 2-1 2-1"/><path d="M8 14V4h7a3 3 0 0 1 0 6H8"/></svg>',
+      car: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17h14l-1.4-6.2A3 3 0 0 0 14.7 8H9.3a3 3 0 0 0-2.9 2.8Z"/><path d="M7 17v2"/><path d="M17 17v2"/><circle cx="8" cy="14" r="1"/><circle cx="16" cy="14" r="1"/></svg>',
+      beach: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19c2 0 2-1 4-1s2 1 4 1 2-1 4-1 2 1 4 1 2-1 2-1"/><path d="M12 4a8 8 0 0 0-8 8c3-2 6-2 8 0 2-2 5-2 8 0a8 8 0 0 0-8-8Z"/><path d="M12 12v7"/></svg>',
+      key: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="7.5" cy="14.5" r="4.5"/><path d="M11 11l9-9"/><path d="M16 6l2 2"/><path d="M14 8l2 2"/></svg>',
+      home: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10.5V21h14V10.5"/><path d="M9 21v-6h6v6"/></svg>',
+      tv: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>',
+      fan: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M12 10c-1.2-3.8.2-6 2.4-6 1.6 0 2.6 1.2 2.6 2.6 0 2.4-2.4 3.6-5 3.4Z"/><path d="M14 13c3.8-1.2 6 .2 6 2.4 0 1.6-1.2 2.6-2.6 2.6-2.4 0-3.6-2.4-3.4-5Z"/><path d="M10.5 13.2c-2.4 3.2-5 3.2-6.1 1.3-.8-1.4-.2-2.9 1-3.6 2.1-1.2 4.3.3 5.1 2.3Z"/></svg>',
+      plate: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M21 4v7"/><path d="M18 4v7"/><path d="M18 7h3"/></svg>',
+      calendar: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M3 10h18"/></svg>',
+      utensils: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3v8a3 3 0 0 0 6 0V3"/><path d="M7 3v18"/><path d="M16 3c2.4 1.3 4 3.8 4 6.8S18.4 15.3 16 16v5"/></svg>',
+      copy: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>',
+      tennis: '<svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="8" cy="8" rx="4" ry="6" transform="rotate(35 8 8)"/><path d="m11 12 8 8"/><path d="M6 4.8 10.8 11"/><path d="M3.7 8.7 8.5 15"/></svg>',
+      shower: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 11a7 7 0 0 1 14 0"/><path d="M12 4V2"/><path d="M8 13v.5"/><path d="M12 13v.5"/><path d="M16 13v.5"/><path d="M7 17v.5"/><path d="M12 17v.5"/><path d="M17 17v.5"/><path d="M9 21v.5"/><path d="M15 21v.5"/></svg>',
+      castle: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V8h4V5h3v3h2V5h3v3h4v13"/><path d="M3 21h18"/><path d="M9 21v-5a3 3 0 0 1 6 0v5"/><path d="M7 12h2"/><path d="M15 12h2"/></svg>',
+      store: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h16l-1-5H5z"/><path d="M5 10v11h14V10"/><path d="M9 21v-6h6v6"/><path d="M4 10c0 1.4 1.1 2.5 2.5 2.5S9 11.4 9 10c0 1.4 1.1 2.5 2.5 2.5S14 11.4 14 10c0 1.4 1.1 2.5 2.5 2.5S19 11.4 19 10"/></svg>',
+      map: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3Z"/><path d="M9 3v15"/><path d="M15 6v15"/></svg>',
+      sparkleHeart: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 8.5a4 4 0 0 0-5.7 0L12 10.3l-1.8-1.8a4 4 0 0 0-5.7 5.7L12 21.5l7.5-7.3a4 4 0 0 0 0-5.7Z"/><path d="M18 2v3"/><path d="M16.5 3.5h3"/><path d="M5 3v2"/><path d="M4 4h2"/></svg>',
+    };
+
+    // Edita los textos en este bloque. La parte de renderizado empieza despues de guideContent.
+    const guideContent = {
+      es: {
+        meta: {
+          title: "Bienvenidos a vuestra casa en Peñíscola | Guía de bienvenida",
+          description: "Guía de bienvenida del apartamento Ven a la Playa 324 en Peñíscola.",
+          copyPassword: "Copiar contraseña",
+          copied: "Copiada",
+          call: "Llamar"
+        },
+        hero: {
+          image: "assets/photos/brochure-cover-hero.jpeg",
+          imageLabel: "Vista de Peñíscola junto al mar",
+          eyebrow: "Guía de bienvenida",
+          title: "Bienvenidos a vuestra casa en Peñíscola",
+          intro: "Hola, soy vuestro apartamento de vacaciones y vuestro hogar durante unos días.",
+          speech: [
+            "Hola, soy vuestro apartamento de vacaciones y vuestro hogar durante unos días.",
+            "Pero también soy el apartamento de Raúl y Vanessa. Me encontraron hace poco y me han decorado con mucho cariño, ilusión y esfuerzo.",
+            "Durante la reforma intentaron cuidar cada detalle para que vuestra estancia fuera cómoda y especial. Han querido convertirme en un lugar acogedor donde disfrutar del mar, del descanso y de días inolvidables.",
+            "Por eso os quiero pedir un pequeño favor: tratadme con el mismo cariño con el que ellos me prepararon para vosotros. A cambio, intentaré que durante estos días os sintáis como en vuestra propia casa."
+          ],
+          badges: [
+            { icon: "clock", label: "Check-in", value: "16:00 - 22:00" },
+            { icon: "clock", label: "Check-out", value: "Antes de las 11:00" },
+            { icon: "wifi", label: "Wi-Fi", value: "Venalaplaya" }
+          ]
+        },
+        rules: {
+          eyebrow: "Para cuidar de mí",
+          title: "Unas pequeñas normas importantes",
+          intro: "Os pedimos que las leáis al llegar. No están aquí para cortar el ambiente: nos ayudan a que el apartamento, la comunidad y los próximos huéspedes sigan disfrutando igual de bien.",
+          items: [
+            { icon: "smoke", title: "Sin humo dentro", text: "No está permitido fumar en el apartamento." },
+            { icon: "music", title: "Sin fiestas", text: "No se permiten fiestas ni celebraciones, incluidas despedidas de soltero o soltera." },
+            { icon: "moon", title: "Descanso vecinal", text: "Respetad el descanso de los vecinos, especialmente durante la noche." },
+            { icon: "trash", title: "Basura desde las 20:00", text: "La comunidad permite depositar la basura únicamente a partir de las 20:00. Gracias por respetar el horario." },
+            { icon: "pet", title: "Mascotas bienvenidas", text: "Si venís con vuestro compañero de cuatro patas, procurad que no suba al sofá ni a las camas. Así cuidamos de futuros huéspedes con alergias." },
+            { icon: "dish", title: "Vajilla limpia al salir", text: "Antes de marcharos, dejad limpia la vajilla usada. La limpieza prepara el apartamento, pero no incluye lavar utensilios utilizados." }
+          ]
+        },
+        basics: {
+          eyebrow: "Datos practicos",
+          title: "Información del apartamento",
+          intro: "Lo esencial para empezar la estancia sin buscar demasiado.",
+          cards: [
+            { icon: "key", title: "Entrada", value: "16:00 - 22:00", text: "Si necesitáis ajustar algún detalle, avisadnos con tiempo." },
+            { icon: "clock", title: "Salida", value: "Antes de las 11:00", text: "Así el equipo de limpieza puede dejarlo listo para los siguientes huéspedes." },
+            { icon: "phone", title: "Contacto", text: "Esperamos que todo esté perfecto. Si surge cualquier incidencia, llamadnos.", contacts: [
+              { name: "Vanessa", phone: "626892139", tel: "+34626892139" },
+              { name: "Raúl", phone: "639675826", tel: "+34639675826" }
+            ] }
+          ]
+        },
+        wifi: {
+          eyebrow: "Conexion",
+          title: "Wi-Fi",
+          intro: "La red está preparada para que podáis conectaros nada más llegar.",
+          userLabel: "Usuario",
+          passwordLabel: "Contraseña",
+          user: "Venalaplaya",
+          password: "venalaplaya@2017"
+        },
+        practical: {
+          eyebrow: "Comunidad",
+          title: "Basura, piscina y zonas comunes",
+          intro: "Un par de indicaciones rápidas para moverse por la urbanización.",
+          items: [
+            {
+              icon: "trash",
+              title: "Basuras",
+              text: "La zona de contenedores está en la planta 0, a la derecha al salir del ascensor. Recordad que no se puede depositar basura antes de las 20:00."
+            },
+            {
+              icon: "pool",
+              title: "Piscina y tenis",
+              text: "La urbanización tiene piscina de adultos con socorrista en verano, piscina infantil y pista de tenis. Los horarios y normas están indicados a la entrada de los recintos.",
+              stepsTitle: "Cómo llegar",
+              steps: ["Coged el ascensor.", "Pulsad la planta 1.", "Al salir, girad a la derecha.", "En pocos pasos llegaréis a la zona comunitaria."]
+            }
+          ]
+        },
+        accesses: {
+          eyebrow: "Desde la urbanización",
+          title: "Accesos a playa, piscina y paseo",
+          intro: "Playa o piscina, no hay que elegir: en menos de un minuto podéis pasar de la arena al agua dulce.",
+          cards: [
+            { icon: "car", title: "Acceso 1. Entrada principal y parking", text: "Situado junto al Restaurante Casa Jaime. Desde aquí encontraréis la zona de aparcamiento y unas duchas exteriores perfectas para quitaros la arena." },
+            { icon: "pool", title: "Acceso 2. Zona central", text: "Comunica directamente con la piscina, la pista de tenis y la zona comunitaria. Desde el paseo veréis el pasillo con escaleras hacia la comunidad." },
+            { icon: "castle", title: "Acceso 3. Hotel Castillo de Peñíscola", text: "Ideal para llegar rápido al paseo marítimo y a la zona más cercana al castillo y al centro de Peñíscola." }
+          ],
+          tipTitle: "Nuestro consejo",
+          tip: "Si volvéis de la playa, usad las duchas del acceso del parking para retirar la arena. Es un gesto pequeño que ayuda mucho a mantener limpias las zonas comunes y el apartamento."
+        },
+        improvement: {
+          eyebrow: "La urbanización",
+          title: "Un espacio en mejora",
+          text: "Es posible que durante vuestra estancia encontréis una zona en proceso de acondicionamiento. Durante años hubo unos antiguos locales comerciales cerrados; tras un largo proceso, la comunidad recuperó ese espacio y ha comenzado su transformación para crear nuevos jardines y zonas comunes. Gracias por vuestra comprensión durante este periodo de mejora."
+        },
+        apartment: {
+          eyebrow: "Dentro de casa",
+          title: "Nos conocemos un poquito mejor",
+          intro: "Algunos aparatos tienen su pequeña personalidad. No os preocupéis: es más sencillo de lo que parece.",
+          groups: [
+            { icon: "tv", title: "Televisión", steps: [
+              "Encended o apagad con el botón de inicio.",
+              "Al iniciar, puede aparecer directamente la TV. En ese caso solo tenéis que cambiar canales con el mando.",
+              "Si aparece la pantalla de inicio, pulsad el botón con el círculo blanco.",
+              "Moved el cursor hasta INICIO y luego hacia la derecha, hasta el icono de selección de entradas.",
+              "Elegid TV normal o la entrada externa que necesitéis.",
+              "Usad los botones de canales y volumen del mando."
+            ], images: [
+              { src: "assets/guide/tv-remote-full.jpeg", alt: "Mando de la televisión", caption: "Mando de la TV" },
+              { src: "assets/guide/tv-home-screen.jpeg", alt: "Pantalla de inicio de la televisión", caption: "Pantalla de inicio" },
+              { src: "assets/guide/tv-inputs-screen.jpeg", alt: "Selector de entradas de la televisión", caption: "Selector de entradas" },
+              { src: "assets/guide/tv-remote-volume-channel.jpeg", alt: "Botones de volumen y canales del mando", caption: "Volumen y canales" }
+            ] },
+            { icon: "fan", title: "Ventilador del salón", steps: [
+              "El ventilador se controla con su mando a distancia.",
+              "Si al pulsar no responde, encended primero la luz de la habitación desde el interruptor.",
+              "Después podréis activar el ventilador, subir la velocidad con la ruleta y encender o apagar la luz."
+            ], images: [
+              { src: "assets/guide/fan-remote-full.jpeg", alt: "Mando del ventilador", caption: "Mando del ventilador" },
+              { src: "assets/guide/fan-remote-speed.jpeg", alt: "Control de velocidad del ventilador", caption: "Velocidad" },
+              { src: "assets/guide/fan-remote-light.jpeg", alt: "Botón de luz del ventilador", caption: "Luz" }
+            ] },
+            { icon: "fan", title: "Ventiladores de dormitorios", steps: [
+              "Se controlan desde su mando.",
+              "Si no encienden, activad primero la luz del dormitorio desde el interruptor de entrada.",
+              "Luego ya podéis controlar luz y potencia desde el mando del ventilador."
+            ], images: [
+              { src: "assets/guide/fan-remote-full.jpeg", alt: "Mando de ventilador de dormitorio", caption: "Mando del ventilador" }
+            ] },
+            { icon: "plate", title: "Lavavajillas", steps: [
+              "Usad pastillas 3 en 1, que incluyan la parte salina.",
+              "Así cuidamos el lavavajillas y la vajilla durante más tiempo."
+            ] }
+          ]
+        },
+        events: {
+          eyebrow: "Fuera de la comunidad",
+          title: "Temas de interés en Peñíscola",
+          intro: "Algunas fechas y planes que suelen hacer especial la estancia.",
+          groups: [
+            { icon: "calendar", title: "Fiestas de Peñíscola", items: [
+              "23 y 24 de junio: San Juan, hogueras en la playa y fuegos artificiales. El 24 de junio es festivo en la Comunidad Valenciana.",
+              "29 de junio: San Pedro, procesión marítima con la imagen del santo y verbena popular.",
+              "Principios de septiembre: Fiestas Patronales de la Virgen de la Ermitana, de Interés Turístico Nacional, con Lessa Danses, moros y cristianos, vaquillas, conciertos, paellas populares, fuegos artificiales y actos religiosos."
+            ] },
+            { icon: "heart", title: "Otros eventos conocidos", items: [
+              "Títeres infantiles a diario, a unos 50 metros de la urbanización camino del castillo.",
+              "Festival Internacional de Jazz en julio.",
+              "Festival Internacional de Teatro Clásico en julio y agosto.",
+              "Mercados artesanales."
+            ] }
+          ]
+        },
+        favorites: {
+          eyebrow: "Nuestros rincones",
+          title: "Sitios favoritos",
+          intro: "Peñíscola está llena de lugares maravillosos. Estos no son necesariamente los mejores de las guías, son sitios que nos gustan y que iremos ampliando con vuestros descubrimientos.",
+          highlight: "Para nosotros, la terraza es un lugar muy especial. Cuando el castillo se ilumina, la vista se convierte en uno de esos recuerdos que se quedan.",
+          restaurants: [
+            { name: "El Pescador Ermitaño", text: "Un clásico, con pescado fresco y arroces." },
+            { name: "El Peñón", text: "Para cenas tranquilas de cocina mediterránea." },
+            { name: "Casa Jaime", text: "Muy popular por sus arroces y una buena paella." },
+            { name: "Las Vegas", text: "Auténtica paella valenciana." },
+            { name: "Tasca la Bellota", text: "Tablas de ibéricos, quesos y tapas en el casco antiguo." },
+            { name: "La Pulpería", text: "Conocida por sus raciones de pulpo y buen ambiente." },
+            { name: "Restaurante 1971", text: "Buena relación calidad-precio y buenas valoraciones." },
+            { name: "Heladerías del paseo", text: "Hay varias justo antes de llegar a la zona del casco." },
+            { name: "El Coliseo", text: "Raciones generosas muy cerca. Podéis subir una pizza o unas raciones y disfrutarlas en la terraza." }
+          ]
+        },
+        thanks: {
+          eyebrow: "Muchas gracias",
+          title: "Gracias por haber elegido nuestro apartamento",
+          paragraphs: [
+            "Gracias por haber elegido nuestro apartamento para disfrutar unos días de Peñíscola.",
+            "Cuando lo compramos, imaginamos un lugar donde nosotros mismos querríamos pasar las vacaciones: luminoso, cómodo, acogedor y con el mar siempre presente.",
+            "Esperamos que este apartamento, su terraza y sus vistas se conviertan en uno de vuestros rincones favoritos.",
+            "Si os habéis sentido como en casa, vuestra valoración en Booking, Airbnb o Google será el mejor regalo que podéis hacernos, y una ayuda enorme para futuros viajeros.",
+            "Si creéis que nos hemos ganado un 10, será el mejor reconocimiento al esfuerzo e ilusión que hemos puesto en este proyecto.",
+            "Pero, por encima de cualquier valoración, lo que más nos gustaría es volver a daros la bienvenida algún día. Y que esta sea vuestra casa en Peñíscola.",
+            "¡Hasta pronto!"
+          ],
+          signature: "Raúl y Vanessa"
+        }
+      },
+      en: {
+        meta: {
+          title: "Welcome to your home in Peñíscola | Welcome guide",
+          description: "Welcome guide for Ven a la Playa 324 apartment in Peñíscola.",
+          copyPassword: "Copy password",
+          copied: "Copied",
+          call: "Call"
+        },
+        hero: {
+          image: "assets/photos/brochure-cover-hero.jpeg",
+          imageLabel: "View of Peñíscola by the sea",
+          eyebrow: "Welcome guide",
+          title: "Welcome to your home in Peñíscola",
+          intro: "Hi, I am your holiday apartment and your home for a few days.",
+          speech: [
+            "Hi, I am your holiday apartment and your home for a few days.",
+            "I am also Raúl and Vanessa's apartment. They found me recently and decorated me with lots of care, excitement and effort.",
+            "During the renovation they tried to look after every detail so your stay would be comfortable and special. They wanted to turn me into a welcoming place to enjoy the sea, rest and unforgettable days.",
+            "So I would like to ask you a small favour: please treat me with the same care they used to prepare me for you. In return, I will try to make you feel at home during these days."
+          ],
+          badges: [
+            { icon: "clock", label: "Check-in", value: "16:00 - 22:00" },
+            { icon: "clock", label: "Check-out", value: "Before 11:00" },
+            { icon: "wifi", label: "Wi-Fi", value: "Venalaplaya" }
+          ]
+        },
+        rules: {
+          eyebrow: "Taking care of me",
+          title: "A few important house rules",
+          intro: "Please read them when you arrive. They are not meant to feel strict; they simply help the apartment, the community and future guests enjoy the stay just as much.",
+          items: [
+            { icon: "smoke", title: "No smoking indoors", text: "Smoking is not allowed inside the apartment." },
+            { icon: "music", title: "No parties", text: "Parties and celebrations are not allowed, including bachelor or bachelorette events." },
+            { icon: "moon", title: "Respect quiet hours", text: "Please respect the neighbours' rest, especially at night." },
+            { icon: "trash", title: "Rubbish after 20:00", text: "The community only allows rubbish to be left from 20:00 onwards. Thank you for respecting this schedule." },
+            { icon: "pet", title: "Pets are welcome", text: "If you came with your four-legged companion, please keep them off the sofa and beds. This helps future guests who may have allergies." },
+            { icon: "dish", title: "Clean dishes before leaving", text: "Before you leave, please wash the dishes you used. Cleaning prepares the apartment, but it does not include washing used utensils." }
+          ]
+        },
+        basics: {
+          eyebrow: "Useful details",
+          title: "Apartment information",
+          intro: "The essentials for starting your stay without searching around.",
+          cards: [
+            { icon: "key", title: "Check-in", value: "16:00 - 22:00", text: "If you need to adjust any detail, please let us know in advance." },
+            { icon: "clock", title: "Check-out", value: "Before 11:00", text: "This gives the cleaning team time to prepare everything for the next guests." },
+            { icon: "phone", title: "Contact", text: "We hope everything is perfect. If anything comes up, please call us.", contacts: [
+              { name: "Vanessa", phone: "626892139", tel: "+34626892139" },
+              { name: "Raúl", phone: "639675826", tel: "+34639675826" }
+            ] }
+          ]
+        },
+        wifi: {
+          eyebrow: "Connection",
+          title: "Wi-Fi",
+          intro: "The network is ready so you can connect as soon as you arrive.",
+          userLabel: "Network",
+          passwordLabel: "Password",
+          user: "Venalaplaya",
+          password: "venalaplaya@2017"
+        },
+        practical: {
+          eyebrow: "Community",
+          title: "Rubbish, pool and common areas",
+          intro: "A few quick notes to move around the residential complex.",
+          items: [
+            {
+              icon: "trash",
+              title: "Rubbish",
+              text: "The bins are on floor 0, on the right as you leave the lift. Please remember rubbish cannot be left before 20:00."
+            },
+            {
+              icon: "pool",
+              title: "Pool and tennis",
+              text: "The complex has an adult pool with lifeguard in summer, a children's pool and a tennis court. Opening times and rules are posted at each entrance.",
+              stepsTitle: "How to get there",
+              steps: ["Take the lift.", "Press floor 1.", "Turn right as you leave the lift.", "In a few steps you will reach the common area."]
+            }
+          ]
+        },
+        accesses: {
+          eyebrow: "From the complex",
+          title: "Access to the beach, pool and promenade",
+          intro: "Beach or pool, no need to choose: in less than a minute you can go from the sand to the pool.",
+          cards: [
+            { icon: "car", title: "Access 1. Main entrance and parking", text: "Located next to Restaurante Casa Jaime. From here you will also find the parking area and outdoor showers, perfect for removing sand." },
+            { icon: "pool", title: "Access 2. Central area", text: "This leads directly to the pool, tennis court and common area. From the promenade you will see the corridor with stairs into the complex." },
+            { icon: "castle", title: "Access 3. Hotel Castillo de Peñíscola", text: "Ideal for quick access to the promenade and the area closest to the castle and Peñíscola town centre." }
+          ],
+          tipTitle: "Our tip",
+          tip: "When you return from the beach, use the showers by the parking entrance to remove the sand. It is a small gesture that keeps the common areas and the apartment cleaner."
+        },
+        improvement: {
+          eyebrow: "The complex",
+          title: "An area being improved",
+          text: "During your stay you may see an area being refurbished. For years there were old closed commercial premises there; after a long process, the community recovered the space and has begun transforming it into new gardens and common areas. Thank you for your understanding during this improvement period."
+        },
+        apartment: {
+          eyebrow: "Inside the apartment",
+          title: "A little guide to the apartment",
+          intro: "Some devices have their own small personality. Do not worry: it is easier than it looks.",
+          groups: [
+            { icon: "tv", title: "Television", steps: [
+              "Turn it on or off with the power button.",
+              "When it starts, normal TV may appear directly. In that case, just change channels with the remote.",
+              "If the home screen appears, press the button with the white circle.",
+              "Move the cursor to HOME and then right to the input selection icon.",
+              "Choose normal TV or the external input you need.",
+              "Use the channel and volume buttons on the remote."
+            ], images: [
+              { src: "assets/guide/tv-remote-full.jpeg", alt: "TV remote", caption: "TV remote" },
+              { src: "assets/guide/tv-home-screen.jpeg", alt: "TV home screen", caption: "Home screen" },
+              { src: "assets/guide/tv-inputs-screen.jpeg", alt: "TV input selector", caption: "Input selector" },
+              { src: "assets/guide/tv-remote-volume-channel.jpeg", alt: "Volume and channel buttons", caption: "Volume and channels" }
+            ] },
+            { icon: "fan", title: "Living-room fan", steps: [
+              "The fan is controlled with its remote.",
+              "If it does not respond, first turn on the room light using the wall switch.",
+              "Then you can start the fan, increase speed with the wheel and switch the light on or off."
+            ], images: [
+              { src: "assets/guide/fan-remote-full.jpeg", alt: "Fan remote", caption: "Fan remote" },
+              { src: "assets/guide/fan-remote-speed.jpeg", alt: "Fan speed control", caption: "Speed" },
+              { src: "assets/guide/fan-remote-light.jpeg", alt: "Fan light button", caption: "Light" }
+            ] },
+            { icon: "fan", title: "Bedroom fans", steps: [
+              "They are controlled with their remote.",
+              "If they do not turn on, first switch on the bedroom light from the entrance switch.",
+              "Then you can control light and power from the fan remote."
+            ], images: [
+              { src: "assets/guide/fan-remote-full.jpeg", alt: "Bedroom fan remote", caption: "Fan remote" }
+            ] },
+            { icon: "plate", title: "Dishwasher", steps: [
+              "Use 3-in-1 tablets that include the salt function.",
+              "This helps protect the dishwasher and the dishes."
+            ] }
+          ]
+        },
+        events: {
+          eyebrow: "Outside the complex",
+          title: "Things to enjoy in Peñíscola",
+          intro: "A few dates and plans that can make your stay even more special.",
+          groups: [
+            { icon: "calendar", title: "Peñíscola festivals", items: [
+              "23 and 24 June: San Juan, bonfires on the beach and fireworks. 24 June is a public holiday in the Valencian Community.",
+              "29 June: San Pedro, maritime procession with the saint's image and a popular evening celebration.",
+              "Early September: Patron Saint Festivities of the Virgen de la Ermitana, a National Tourist Interest event, with Lessa Danses, Moors and Christians parades, bull events, concerts, popular paellas, fireworks and religious ceremonies."
+            ] },
+            { icon: "heart", title: "Other well-known events", items: [
+              "Children's puppet shows daily, about 50 metres from the complex on the way to the castle.",
+              "International Jazz Festival in July.",
+              "International Classical Theatre Festival in July and August.",
+              "Craft markets."
+            ] }
+          ]
+        },
+        favorites: {
+          eyebrow: "Our favourite corners",
+          title: "Places we like",
+          intro: "Peñíscola is full of wonderful places. These are not necessarily the top guidebook picks; they are places we like and will keep expanding with your discoveries.",
+          highlight: "For us, the terrace is a very special place. When the castle lights up, the view becomes one of those memories that stays with you.",
+          restaurants: [
+            { name: "El Pescador Ermitaño", text: "A classic, with fresh fish and rice dishes." },
+            { name: "El Peñón", text: "For quiet Mediterranean dinners." },
+            { name: "Casa Jaime", text: "Very popular for rice dishes and a good paella." },
+            { name: "Las Vegas", text: "Authentic Valencian paella." },
+            { name: "Tasca la Bellota", text: "Iberian cold cuts, cheeses and tapas in the old town." },
+            { name: "La Pulpería", text: "Known for octopus portions and a good atmosphere." },
+            { name: "Restaurante 1971", text: "Good value for money and good reviews." },
+            { name: "Ice-cream shops on the promenade", text: "There are several just before reaching the old-town area." },
+            { name: "El Coliseo", text: "Generous portions and very close by. You can bring up a pizza or some dishes and enjoy them on the terrace." }
+          ]
+        },
+        thanks: {
+          eyebrow: "Thank you",
+          title: "Thank you for choosing our apartment",
+          paragraphs: [
+            "Thank you for choosing our apartment to enjoy a few days in Peñíscola.",
+            "When we bought it, we imagined a place where we ourselves would want to spend our holidays: bright, comfortable, welcoming and always close to the sea.",
+            "We hope the apartment, its terrace and its views become one of your favourite corners.",
+            "If you felt at home, your review on Booking, Airbnb or Google is the best gift you can give us and a huge help for future travellers.",
+            "If you think we have earned a 10, it will be the best recognition of the effort and excitement we have put into this project.",
+            "More than any review, what we would love most is to welcome you again one day, and for this to be your home in Peñíscola.",
+            "See you soon!"
+          ],
+          signature: "Raúl and Vanessa"
+        }
+      },
+      fr: {
+        meta: {
+          title: "Bienvenue dans votre maison à Peñíscola | Guide de bienvenue",
+          description: "Guide de bienvenue de l'appartement Ven a la Playa 324 à Peñíscola.",
+          copyPassword: "Copier le mot de passe",
+          copied: "Copié",
+          call: "Appeler"
+        },
+        hero: {
+          image: "assets/photos/brochure-cover-hero.jpeg",
+          imageLabel: "Vue de Peñíscola au bord de la mer",
+          eyebrow: "Guide de bienvenue",
+          title: "Bienvenue dans votre maison à Peñíscola",
+          intro: "Bonjour, je suis votre appartement de vacances et votre maison pour quelques jours.",
+          speech: [
+            "Bonjour, je suis votre appartement de vacances et votre maison pour quelques jours.",
+            "Je suis aussi l'appartement de Raúl et Vanessa. Ils m'ont trouvé il y a peu et m'ont décoré avec beaucoup de soin, d'illusion et d'effort.",
+            "Pendant la rénovation, ils ont essayé de prendre soin de chaque détail pour que votre séjour soit confortable et spécial. Ils ont voulu faire de moi un lieu accueillant pour profiter de la mer, du repos et de journées inoubliables.",
+            "C'est pourquoi je voudrais vous demander une petite faveur: prenez soin de moi avec le même soin avec lequel ils m'ont préparé pour vous. En échange, j'essaierai de vous faire sentir comme chez vous."
+          ],
+          badges: [
+            { icon: "clock", label: "Arrivee", value: "16:00 - 22:00" },
+            { icon: "clock", label: "Depart", value: "Avant 11:00" },
+            { icon: "wifi", label: "Wi-Fi", value: "Venalaplaya" }
+          ]
+        },
+        rules: {
+          eyebrow: "Pour prendre soin de moi",
+          title: "Quelques règles importantes",
+          intro: "Merci de les lire a votre arrivee. Elles ne sont pas la pour paraitre severes: elles nous aident a garder l'appartement, la residence et les prochains sejours aussi agreables.",
+          items: [
+            { icon: "smoke", title: "Pas de fumée à l'intérieur", text: "Il est interdit de fumer dans l'appartement." },
+            { icon: "music", title: "Pas de fêtes", text: "Les fêtes et célébrations ne sont pas autorisées, y compris les enterrements de vie de célibataire." },
+            { icon: "moon", title: "Repos des voisins", text: "Merci de respecter le repos des voisins, surtout pendant la nuit." },
+            { icon: "trash", title: "Poubelles apres 20:00", text: "La residence permet de deposer les poubelles uniquement a partir de 20:00. Merci de respecter cet horaire." },
+            { icon: "pet", title: "Animaux bienvenus", text: "Si vous venez avec votre compagnon a quatre pattes, merci d'eviter qu'il monte sur le canape ou les lits. Cela aide les futurs voyageurs qui peuvent avoir des allergies." },
+            { icon: "dish", title: "Vaisselle propre au depart", text: "Avant de partir, merci de laisser propre la vaisselle utilisee. Le menage prepare l'appartement, mais ne comprend pas le lavage des ustensiles utilises." }
+          ]
+        },
+        basics: {
+          eyebrow: "Infos pratiques",
+          title: "Informations de l'appartement",
+          intro: "L'essentiel pour commencer le sejour sans chercher partout.",
+          cards: [
+            { icon: "key", title: "Arrivee", value: "16:00 - 22:00", text: "Si vous devez ajuster un detail, prevenez-nous a l'avance." },
+            { icon: "clock", title: "Depart", value: "Avant 11:00", text: "Cela permet a l'equipe de menage de tout preparer pour les prochains voyageurs." },
+            { icon: "phone", title: "Contact", text: "Nous esperons que tout sera parfait. Si un souci apparait, appelez-nous.", contacts: [
+              { name: "Vanessa", phone: "626892139", tel: "+34626892139" },
+              { name: "Raúl", phone: "639675826", tel: "+34639675826" }
+            ] }
+          ]
+        },
+        wifi: {
+          eyebrow: "Connexion",
+          title: "Wi-Fi",
+          intro: "Le reseau est pret pour que vous puissiez vous connecter des votre arrivee.",
+          userLabel: "Reseau",
+          passwordLabel: "Mot de passe",
+          user: "Venalaplaya",
+          password: "venalaplaya@2017"
+        },
+        practical: {
+          eyebrow: "Residence",
+          title: "Poubelles, piscine et espaces communs",
+          intro: "Quelques indications rapides pour vous deplacer dans la residence.",
+          items: [
+            {
+              icon: "trash",
+              title: "Poubelles",
+              text: "La zone des conteneurs se trouve au niveau 0, a droite en sortant de l'ascenseur. Merci de ne pas deposer les poubelles avant 20:00."
+            },
+            {
+              icon: "pool",
+              title: "Piscine et tennis",
+              text: "La residence dispose d'une piscine adultes avec maitre-nageur en ete, d'une piscine enfants et d'un court de tennis. Les horaires et regles sont affiches a l'entree.",
+              stepsTitle: "Comment y aller",
+              steps: ["Prenez l'ascenseur.", "Appuyez sur l'etage 1.", "En sortant, tournez a droite.", "En quelques pas, vous arriverez a l'espace commun."]
+            }
+          ]
+        },
+        accesses: {
+          eyebrow: "Depuis la residence",
+          title: "Acces plage, piscine et promenade",
+          intro: "Plage ou piscine, inutile de choisir: en moins d'une minute, vous passez du sable a la piscine.",
+          cards: [
+            { icon: "car", title: "Acces 1. Entree principale et parking", text: "Situe pres du Restaurante Casa Jaime. Vous y trouverez aussi le parking et des douches exterieures parfaites pour enlever le sable." },
+            { icon: "pool", title: "Acces 2. Zone centrale", text: "Il communique directement avec la piscine, le court de tennis et l'espace commun. Depuis la promenade, vous verrez le couloir avec les escaliers vers la residence." },
+            { icon: "castle", title: "Accès 3. Hotel Castillo de Peñíscola", text: "Idéal pour rejoindre rapidement la promenade maritime et la zone la plus proche du château et du centre de Peñíscola." }
+          ],
+          tipTitle: "Notre conseil",
+          tip: "En revenant de la plage, utilisez les douches de l'acces du parking pour enlever le sable. Ce petit geste aide beaucoup a garder les espaces communs et l'appartement propres."
+        },
+        improvement: {
+          eyebrow: "La residence",
+          title: "Un espace en cours d'amelioration",
+          text: "Pendant votre sejour, vous pourrez voir une zone en cours d'amenagement. Pendant des annees, d'anciens locaux commerciaux sont restes fermes; apres un long processus, la residence a recupere cet espace et commence a le transformer en nouveaux jardins et espaces communs. Merci de votre comprehension pendant cette periode d'amelioration."
+        },
+        apartment: {
+          eyebrow: "Dans l'appartement",
+          title: "Apprenons a nous connaitre",
+          intro: "Certains appareils ont leur petite personnalite. Ne vous inquietez pas: c'est plus simple qu'il n'y parait.",
+          groups: [
+            { icon: "tv", title: "Television", steps: [
+              "Allumez ou eteignez avec le bouton de mise en marche.",
+              "Au demarrage, la TV peut apparaitre directement. Dans ce cas, changez simplement de chaine avec la telecommande.",
+              "Si l'ecran d'accueil apparait, appuyez sur le bouton avec le cercle blanc.",
+              "Deplacez le curseur jusqu'a ACCUEIL puis vers la droite jusqu'a l'icone de selection des entrees.",
+              "Choisissez la TV normale ou l'entree externe dont vous avez besoin.",
+              "Utilisez les boutons de chaines et de volume de la telecommande."
+            ], images: [
+              { src: "assets/guide/tv-remote-full.jpeg", alt: "Telecommande de la television", caption: "Telecommande TV" },
+              { src: "assets/guide/tv-home-screen.jpeg", alt: "Ecran d'accueil de la television", caption: "Ecran d'accueil" },
+              { src: "assets/guide/tv-inputs-screen.jpeg", alt: "Selection des entrees de la television", caption: "Selection des entrees" },
+              { src: "assets/guide/tv-remote-volume-channel.jpeg", alt: "Boutons volume et chaines", caption: "Volume et chaines" }
+            ] },
+            { icon: "fan", title: "Ventilateur du salon", steps: [
+              "Le ventilateur se controle avec sa telecommande.",
+              "S'il ne repond pas, allumez d'abord la lumiere de la piece avec l'interrupteur.",
+              "Vous pourrez ensuite activer le ventilateur, augmenter la vitesse avec la molette et allumer ou eteindre la lumiere."
+            ], images: [
+              { src: "assets/guide/fan-remote-full.jpeg", alt: "Telecommande du ventilateur", caption: "Telecommande" },
+              { src: "assets/guide/fan-remote-speed.jpeg", alt: "Controle de vitesse du ventilateur", caption: "Vitesse" },
+              { src: "assets/guide/fan-remote-light.jpeg", alt: "Bouton de lumiere du ventilateur", caption: "Lumiere" }
+            ] },
+            { icon: "fan", title: "Ventilateurs des chambres", steps: [
+              "Ils se controlent avec leur telecommande.",
+              "S'ils ne s'allument pas, allumez d'abord la lumiere de la chambre avec l'interrupteur de l'entree.",
+              "Vous pourrez ensuite controler la lumiere et la puissance avec la telecommande du ventilateur."
+            ], images: [
+              { src: "assets/guide/fan-remote-full.jpeg", alt: "Telecommande du ventilateur de chambre", caption: "Telecommande" }
+            ] },
+            { icon: "plate", title: "Lave-vaisselle", steps: [
+              "Utilisez des pastilles 3 en 1 incluant la fonction sel.",
+              "Cela protege le lave-vaisselle et la vaisselle plus longtemps."
+            ] }
+          ]
+        },
+        events: {
+          eyebrow: "Hors de la residence",
+          title: "ì voir à Peñíscola",
+          intro: "Quelques dates et activites qui rendent le sejour encore plus special.",
+          groups: [
+            { icon: "calendar", title: "Fêtes de Peñíscola", items: [
+              "23 et 24 juin: San Juan, feux sur la plage et feux d'artifice. Le 24 juin est ferie dans la Communaute valencienne.",
+              "29 juin: San Pedro, procession maritime avec l'image du saint et fete populaire.",
+              "Debut septembre: fetes patronales de la Virgen de la Ermitana, d'interet touristique national, avec Lessa Danses, defiles de Maures et Chretiens, vaquillas, concerts, paellas populaires, feux d'artifice et actes religieux."
+            ] },
+            { icon: "heart", title: "Autres evenements connus", items: [
+              "Marionnettes pour enfants tous les jours, a environ 50 metres de la residence sur le chemin du chateau.",
+              "Festival international de Jazz en juillet.",
+              "Festival international de Theatre classique en juillet et aout.",
+              "Marches artisanaux."
+            ] }
+          ]
+        },
+        favorites: {
+          eyebrow: "Nos coins preferes",
+          title: "Lieux que nous aimons",
+          intro: "Peñíscola regorge de lieux merveilleux. Ce ne sont pas forcément les meilleurs selon les guides; ce sont ceux que nous aimons et que nous continuerons à compléter avec vos découvertes.",
+          highlight: "Pour nous, la terrasse est un endroit tres special. Quand le chateau s'illumine, la vue devient un souvenir qui reste.",
+          restaurants: [
+            { name: "El Pescador Ermitaño", text: "Un classique, avec poisson frais et plats de riz." },
+            { name: "El Peñón", text: "Pour des dîners calmes de cuisine méditerranéenne." },
+            { name: "Casa Jaime", text: "Tres connu pour ses riz et une bonne paella." },
+            { name: "Las Vegas", text: "Paella valencienne authentique." },
+            { name: "Tasca la Bellota", text: "Planches d'iberiques, fromages et tapas dans la vieille ville." },
+            { name: "La Pulpería", text: "Connue pour ses portions de poulpe et sa bonne ambiance." },
+            { name: "Restaurante 1971", text: "Bon rapport qualite-prix et bons avis." },
+            { name: "Glaciers de la promenade", text: "Il y en a plusieurs juste avant d'arriver a la vieille ville." },
+            { name: "El Coliseo", text: "Portions genereuses tout pres. Vous pouvez monter une pizza ou quelques plats et les savourer sur la terrasse." }
+          ]
+        },
+        thanks: {
+          eyebrow: "Merci beaucoup",
+          title: "Merci d'avoir choisi notre appartement",
+          paragraphs: [
+            "Merci d'avoir choisi notre appartement pour profiter de quelques jours à Peñíscola.",
+            "Quand nous l'avons achete, nous avons imagine un lieu ou nous aimerions nous-memes passer les vacances: lumineux, confortable, accueillant et toujours proche de la mer.",
+            "Nous esperons que l'appartement, sa terrasse et ses vues deviendront l'un de vos coins preferes.",
+            "Si vous vous etes sentis comme chez vous, votre avis sur Booking, Airbnb ou Google sera le plus beau cadeau et une grande aide pour les futurs voyageurs.",
+            "Si vous pensez que nous avons merite un 10, ce sera la meilleure reconnaissance de l'effort et de l'illusion que nous avons mis dans ce projet.",
+            "Au-delà de toute note, ce que nous aimerions le plus, c'est vous accueillir de nouveau un jour, et que cette maison soit la vôtre à Peñíscola.",
+            "ì bientôt!"
+          ],
+          signature: "Raúl et Vanessa"
+        }
+      },
+      de: {
+        meta: {
+          title: "Willkommen in eurem Zuhause in Peñíscola | Willkommensguide",
+          description: "Willkommensguide für das Apartment Ven a la Playa 324 in Peñíscola.",
+          copyPassword: "Passwort kopieren",
+          copied: "Kopiert",
+          call: "Anrufen"
+        },
+        hero: {
+          image: "assets/photos/brochure-cover-hero.jpeg",
+          imageLabel: "Blick auf Peñíscola am Meer",
+          eyebrow: "Willkommensguide",
+          title: "Willkommen in eurem Zuhause in Peñíscola",
+          intro: "Hallo, ich bin euer Ferienapartment und für ein paar Tage euer Zuhause.",
+          speech: [
+            "Hallo, ich bin euer Ferienapartment und für ein paar Tage euer Zuhause.",
+            "Ich bin auch das Apartment von Raúl und Vanessa. Sie haben mich vor Kurzem gefunden und mit viel Liebe, Freude und Einsatz eingerichtet.",
+            "Bei der Renovierung haben sie versucht, auf jedes Detail zu achten, damit euer Aufenthalt bequem und besonders wird. Sie wollten aus mir einen gemütlichen Ort machen, an dem ihr Meer, Erholung und unvergessliche Tage genießen könnt.",
+            "Deshalb möchte ich euch um einen kleinen Gefallen bitten: Behandelt mich mit derselben Liebe, mit der sie mich für euch vorbereitet haben. Dafür werde ich versuchen, dass ihr euch hier wie zu Hause fühlt."
+          ],
+          badges: [
+            { icon: "clock", label: "Check-in", value: "16:00 - 22:00" },
+            { icon: "clock", label: "Check-out", value: "Vor 11:00" },
+            { icon: "wifi", label: "Wi-Fi", value: "Venalaplaya" }
+          ]
+        },
+        rules: {
+          eyebrow: "Damit alles schön bleibt",
+          title: "Ein paar wichtige Hausregeln",
+          intro: "Bitte lest sie bei eurer Ankunft. Sie sollen nicht streng wirken; sie helfen nur, dass das Apartment, die Anlage und die nächsten Gäste den Aufenthalt genauso genießen können.",
+          items: [
+            { icon: "smoke", title: "Nichtraucher-Apartment", text: "Im Apartment ist Rauchen nicht erlaubt." },
+            { icon: "music", title: "Keine Partys", text: "Partys und Feiern sind nicht erlaubt, auch keine Junggesellen- oder Junggesellinnenabschiede." },
+            { icon: "moon", title: "Ruecksicht auf Nachbarn", text: "Bitte respektiert die Ruhe der Nachbarn, besonders nachts." },
+            { icon: "trash", title: "Muell ab 20:00", text: "Die Gemeinschaft erlaubt das Entsorgen von Muell nur ab 20:00 Uhr. Danke, dass ihr diese Zeit einhaltet." },
+            { icon: "pet", title: "Haustiere willkommen", text: "Wenn ihr mit eurem Vierbeiner reist, achtet bitte darauf, dass er nicht auf Sofa oder Betten steigt. So schuetzen wir kuenftige Gaeste mit Allergien." },
+            { icon: "dish", title: "Geschirr sauber hinterlassen", text: "Bitte spuelt vor der Abreise das benutzte Geschirr. Die Reinigung bereitet das Apartment vor, umfasst aber nicht das Spuelen benutzter Utensilien." }
+          ]
+        },
+        basics: {
+          eyebrow: "Praktische Infos",
+          title: "Apartment-Informationen",
+          intro: "Das Wichtigste, damit ihr ohne Suchen gut ankommt.",
+          cards: [
+            { icon: "key", title: "Check-in", value: "16:00 - 22:00", text: "Wenn ihr etwas abstimmen muesst, sagt uns bitte rechtzeitig Bescheid." },
+            { icon: "clock", title: "Check-out", value: "Vor 11:00", text: "So kann das Reinigungsteam alles fuer die naechsten Gaeste vorbereiten." },
+            { icon: "phone", title: "Kontakt", text: "Wir hoffen, dass alles perfekt ist. Falls etwas passiert, ruft uns bitte an.", contacts: [
+              { name: "Vanessa", phone: "626892139", tel: "+34626892139" },
+              { name: "Raúl", phone: "639675826", tel: "+34639675826" }
+            ] }
+          ]
+        },
+        wifi: {
+          eyebrow: "Verbindung",
+          title: "Wi-Fi",
+          intro: "Das Netzwerk ist bereit, damit ihr euch direkt nach der Ankunft verbinden koennt.",
+          userLabel: "Netzwerk",
+          passwordLabel: "Passwort",
+          user: "Venalaplaya",
+          password: "venalaplaya@2017"
+        },
+        practical: {
+          eyebrow: "Gemeinschaftsanlage",
+          title: "Muell, Pool und Gemeinschaftsbereiche",
+          intro: "Ein paar schnelle Hinweise, damit ihr euch in der Anlage gut zurechtfindet.",
+          items: [
+            {
+              icon: "trash",
+              title: "Muell",
+              text: "Die Container befinden sich auf Ebene 0, rechts wenn ihr aus dem Aufzug kommt. Bitte denkt daran: Muell darf nicht vor 20:00 Uhr entsorgt werden."
+            },
+            {
+              icon: "pool",
+              title: "Pool und Tennis",
+              text: "Die Anlage hat einen Erwachsenenpool mit Rettungsschwimmer im Sommer, ein Kinderbecken und einen Tennisplatz. Zeiten und Regeln stehen am Eingang der Bereiche.",
+              stepsTitle: "So kommt ihr hin",
+              steps: ["Nehmt den Aufzug.", "Drueckt Etage 1.", "Beim Aussteigen nach rechts gehen.", "Nach wenigen Schritten erreicht ihr den Gemeinschaftsbereich."]
+            }
+          ]
+        },
+        accesses: {
+          eyebrow: "Von der Anlage aus",
+          title: "Zugaenge zu Strand, Pool und Promenade",
+          intro: "Strand oder Pool, ihr muesst euch nicht entscheiden: In weniger als einer Minute kommt ihr vom Sand zum Pool.",
+          cards: [
+            { icon: "car", title: "Zugang 1. Haupteingang und Parkplatz", text: "Direkt beim Restaurante Casa Jaime. Hier findet ihr auch den Parkplatz und Aussenduschen, perfekt um Sand abzuspuelen." },
+            { icon: "pool", title: "Zugang 2. Zentraler Bereich", text: "Dieser Zugang fuehrt direkt zum Pool, Tennisplatz und Gemeinschaftsbereich. Von der Promenade aus seht ihr den Gang mit den Treppen in die Anlage." },
+            { icon: "castle", title: "Zugang 3. Hotel Castillo de Peñíscola", text: "Ideal für schnellen Zugang zur Strandpromenade und zum Bereich nahe Burg und Zentrum von Peñíscola." }
+          ],
+          tipTitle: "Unser Tipp",
+          tip: "Wenn ihr vom Strand zurueckkommt, nutzt die Duschen am Parkplatz-Zugang, um den Sand abzuspuelen. Diese kleine Geste haelt Gemeinschaftsbereiche und Apartment sauberer."
+        },
+        improvement: {
+          eyebrow: "Die Anlage",
+          title: "Ein Bereich wird verbessert",
+          text: "Waehrend eures Aufenthalts koennt ihr moeglicherweise einen Bereich sehen, der gerade hergerichtet wird. Viele Jahre lang standen dort alte Geschaeftsraeume leer; nach einem langen Prozess hat die Gemeinschaft diesen Raum zurueckerhalten und beginnt nun, ihn in neue Gaerten und Gemeinschaftsbereiche zu verwandeln. Danke fuer euer Verstaendnis waehrend dieser Verbesserungsphase."
+        },
+        apartment: {
+          eyebrow: "Im Apartment",
+          title: "Ein kleiner Hausguide",
+          intro: "Manche Geraete haben ihre kleine Eigenart. Keine Sorge: Es ist einfacher, als es aussieht.",
+          groups: [
+            { icon: "tv", title: "Fernseher", steps: [
+              "Mit der Ein-/Aus-Taste einschalten oder ausschalten.",
+              "Beim Start kann direkt das normale TV-Bild erscheinen. Dann einfach mit der Fernbedienung die Sender wechseln.",
+              "Wenn der Startbildschirm erscheint, drueckt die Taste mit dem weissen Kreis.",
+              "Bewegt den Cursor zu HOME und dann nach rechts bis zum Symbol fuer die Eingangsauswahl.",
+              "Waehlt normales TV oder den externen Eingang, den ihr braucht.",
+              "Sender und Lautstaerke steuert ihr mit der Fernbedienung."
+            ], images: [
+              { src: "assets/guide/tv-remote-full.jpeg", alt: "Fernbedienung des Fernsehers", caption: "Fernbedienung" },
+              { src: "assets/guide/tv-home-screen.jpeg", alt: "Startbildschirm des Fernsehers", caption: "Startbildschirm" },
+              { src: "assets/guide/tv-inputs-screen.jpeg", alt: "Eingangsauswahl des Fernsehers", caption: "Eingangsauswahl" },
+              { src: "assets/guide/tv-remote-volume-channel.jpeg", alt: "Lautstaerke- und Sendertasten", caption: "Lautstaerke und Sender" }
+            ] },
+            { icon: "fan", title: "Ventilator im Wohnzimmer", steps: [
+              "Der Ventilator wird mit seiner Fernbedienung gesteuert.",
+              "Wenn er nicht reagiert, schaltet zuerst das Licht im Raum am Wandschalter ein.",
+              "Danach koennt ihr den Ventilator einschalten, die Geschwindigkeit mit dem Rad erhoehen und das Licht ein- oder ausschalten."
+            ], images: [
+              { src: "assets/guide/fan-remote-full.jpeg", alt: "Fernbedienung des Ventilators", caption: "Fernbedienung" },
+              { src: "assets/guide/fan-remote-speed.jpeg", alt: "Geschwindigkeitssteuerung des Ventilators", caption: "Geschwindigkeit" },
+              { src: "assets/guide/fan-remote-light.jpeg", alt: "Lichttaste des Ventilators", caption: "Licht" }
+            ] },
+            { icon: "fan", title: "Ventilatoren in den Schlafzimmern", steps: [
+              "Sie werden mit ihrer Fernbedienung gesteuert.",
+              "Wenn sie sich nicht einschalten, schaltet zuerst das Schlafzimmerlicht am Eingangsschalter ein.",
+              "Danach koennt ihr Licht und Leistung mit der Ventilator-Fernbedienung steuern."
+            ], images: [
+              { src: "assets/guide/fan-remote-full.jpeg", alt: "Fernbedienung des Schlafzimmer-Ventilators", caption: "Fernbedienung" }
+            ] },
+            { icon: "plate", title: "Geschirrspueler", steps: [
+              "Bitte 3-in-1-Tabs verwenden, die auch Salzfunktion enthalten.",
+              "So bleiben Geschirrspueler und Geschirr laenger in gutem Zustand."
+            ] }
+          ]
+        },
+        events: {
+          eyebrow: "Ausserhalb der Anlage",
+          title: "Interessantes in Peñíscola",
+          intro: "Einige Termine und Ideen, die euren Aufenthalt noch besonderer machen koennen.",
+          groups: [
+            { icon: "calendar", title: "Feste in Peñíscola", items: [
+              "23. und 24. Juni: San Juan, Feuer am Strand und Feuerwerk. Der 24. Juni ist Feiertag in der Valencianischen Gemeinschaft.",
+              "29. Juni: San Pedro, maritime Prozession mit der Heiligenfigur und Volksfest am Abend.",
+              "Anfang September: Patronatsfeste der Virgen de la Ermitana, von nationalem touristischem Interesse, mit Lessa Danses, Mauren-und-Christen-Umzuegen, Vaquillas, Konzerten, beliebten Paellas, Feuerwerk und religioesen Veranstaltungen."
+            ] },
+            { icon: "heart", title: "Weitere bekannte Veranstaltungen", items: [
+              "Kindertheater mit Puppen taeglich, etwa 50 Meter von der Anlage auf dem Weg zur Burg.",
+              "Internationales Jazzfestival im Juli.",
+              "Internationales Festival fuer Klassisches Theater im Juli und August.",
+              "Kunsthandwerksmaerkte."
+            ] }
+          ]
+        },
+        favorites: {
+          eyebrow: "Unsere Lieblingsorte",
+          title: "Orte, die wir moegen",
+          intro: "Peñíscola ist voller wunderschöner Orte. Das sind nicht unbedingt die besten laut Reiseführer; es sind Orte, die wir mögen und die wir mit euren Entdeckungen weiter ergänzen werden.",
+          highlight: "Fuer uns ist die Terrasse ein ganz besonderer Ort. Wenn die Burg beleuchtet ist, wird der Blick zu einer Erinnerung, die bleibt.",
+          restaurants: [
+            { name: "El Pescador Ermitaño", text: "Ein Klassiker mit frischem Fisch und Reisgerichten." },
+            { name: "El Peñón", text: "Für ruhige Abendessen mit mediterraner Küche." },
+            { name: "Casa Jaime", text: "Sehr beliebt fuer Reisgerichte und gute Paella." },
+            { name: "Las Vegas", text: "Authentische valencianische Paella." },
+            { name: "Tasca la Bellota", text: "Iberische Platten, Kaese und Tapas in der Altstadt." },
+            { name: "La Pulpería", text: "Bekannt fuer Tintenfisch-Portionen und gute Stimmung." },
+            { name: "Restaurante 1971", text: "Gutes Preis-Leistungs-Verhaeltnis und gute Bewertungen." },
+            { name: "Eisdielen an der Promenade", text: "Mehrere liegen kurz vor dem Bereich der Altstadt." },
+            { name: "El Coliseo", text: "Grosszuegige Portionen ganz in der Naehe. Ihr koennt Pizza oder Gerichte mitnehmen und auf der Terrasse geniessen." }
+          ]
+        },
+        thanks: {
+          eyebrow: "Vielen Dank",
+          title: "Danke, dass ihr unser Apartment gewaehlt habt",
+          paragraphs: [
+            "Danke, dass ihr unser Apartment gewaehlt habt, um ein paar Tage in Peñíscola zu genießen.",
+            "Als wir es gekauft haben, stellten wir uns einen Ort vor, an dem wir selbst gern Urlaub machen wuerden: hell, bequem, einladend und immer mit dem Meer in der Naehe.",
+            "Wir hoffen, dass das Apartment, seine Terrasse und die Aussicht zu einem eurer Lieblingsorte werden.",
+            "Wenn ihr euch wie zu Hause gefuehlt habt, ist eure Bewertung auf Booking, Airbnb oder Google das schoenste Geschenk fuer uns und eine grosse Hilfe fuer kuenftige Reisende.",
+            "Wenn ihr findet, dass wir eine 10 verdient haben, ist das die schoenste Anerkennung fuer die Arbeit und Freude, die wir in dieses Projekt gesteckt haben.",
+            "Mehr als jede Bewertung würden wir uns freuen, euch eines Tages wieder willkommen zu heißen, und dass dies euer Zuhause in Peñíscola ist.",
+            "Bis bald!"
+          ],
+          signature: "Raúl und Vanessa"
+        }
+      }
+    };
+
+    const brochurePhotos = [
+      { src: "assets/photos/terrace-view.jpeg", alt: "Terraza con vistas al mar y al castillo", wide: true },
+      { src: "assets/photos/living-room.jpeg", alt: "Salón luminoso con vistas al mar" },
+      { src: "assets/photos/bedroom.jpeg", alt: "Dormitorio del apartamento" },
+      { src: "assets/photos/bathroom.jpeg", alt: "Detalle del baño" }
+    ];
+
